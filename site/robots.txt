@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.mfsfm.co.za/sitemap.xml
