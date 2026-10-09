@@ -75,6 +75,12 @@ def photo(name, alt, cls="", sizes="(max-width: 960px) 100vw, 50vw", pos=None, e
             f'<img src="assets/img/photos/{name}.jpg" alt="{alt}" width="{w}" height="{h}" {load}{style}></picture>')
 
 
+def eco_logo(h=28, cls="eco-badge", caption=""):
+    w = round(h * 600 / 193)
+    cap = f'<span class="eco-cap">{caption}</span>' if caption else ""
+    return f'<span class="{cls}"><img src="assets/img/ecotech-logo.png" alt="Ecotech Engineering Africa" width="{w}" height="{h}" loading="lazy">{cap}</span>'
+
+
 def director_href():
     return f"tel:{PHONE_TEL}" if PHONE_TEL else "contact.html#director"
 
@@ -251,7 +257,7 @@ def mega_services():
     for slug in ["cleaning", "grounds", "property", "support"]:
         d = DIVISIONS[slug]
         items.append(f'<a class="mega-item" href="{d["file"]}">{icon(d["key"])}<span><b>{d["name"].replace("&", "&amp;")}</b><small>{d["tagline"]}</small></span></a>')
-    items.append(f'<a class="mega-item" href="property-care.html#building">{icon("build")}<span><b>Building &amp; Civil Works</b><small>Delivered with Ecotech Engineering.</small></span></a>')
+    items.append(f'<a class="mega-item" href="property-care.html#building">{icon("build")}<span><b>Building &amp; Civil Works</b><small class="mega-eco">Delivered with {eco_logo(14, "eco-inline")}</small></span></a>')
     return f'''<div class="mega mega-services" role="group" aria-label="Services">
           <div class="mega-grid">{''.join(items)}</div>
           <div class="mega-aside">
@@ -389,7 +395,7 @@ FOOTER = f"""</main>
     </div>
     <div class="footer-base">
       <span>&copy; 2026 Moisapula Facilities Solutions.</span>
-      <span>Clean. Green. Safe. Working. · Building &amp; civil works delivered through Ecotech Engineering.</span>
+      <span class="footer-partner">Building &amp; civil works delivered through {eco_logo(22)}</span>
     </div>
   </div>
 </footer>
@@ -510,7 +516,7 @@ def ecotech_section():
       </div>
     </div>
     <div class="partner-card">
-      <div style="display:flex;gap:14px;align-items:center">{icon('build')}<div><b>Ecotech Engineering</b><span>MFS's building and civil works partner</span></div></div>
+      <div class="eco-head">{eco_logo(40)}<div><b>Ecotech Engineering Africa</b><span>MFS's building and civil works partner</span></div></div>
       {blueprint()}
       <ul class="checks cap-list" style="grid-template-columns:1fr 1fr">{caps}</ul>
     </div>
@@ -558,7 +564,7 @@ def tiles_html():
     build_lis = "".join(f"<li>{b}</li>" for b in BUILD[:5])
     cells += f"""<article class="tile t-build tile--dark div-build">
   <svg class="tile-art" viewBox="0 0 24 24" aria-hidden="true">{ICON['build']}</svg>
-  <div class="tile-head">{icon('build')}<span class="tile-badge">With Ecotech Engineering</span></div>
+  <div class="tile-head">{icon('build')}<span class="tile-badge tile-badge--eco">With {eco_logo(18, "eco-inline")}</span></div>
   <h3><a class="stretch" href="property-care.html#building">Building &amp; Civil Works</a></h3>
   <p class="tile-tag">Specialist projects, one point of accountability.</p>
   <div class="tile-swap"><p class="tile-pitch">Building and civil works delivered through our strategic partner, Ecotech Engineering, managed by MFS from start to handover.</p><ul class="tile-list">{build_lis}</ul></div>
@@ -940,7 +946,7 @@ def svx_card(slug, tag, i):
     d = DIVISIONS[slug]
     name = d["name"].replace("&", "&amp;")
     chips = "".join(f'<li style="--i:{j}">{s}</li>' for j, (s, _t) in enumerate(d["services"]))
-    extra = ' <span class="svx-partner">with Ecotech Engineering</span>' if slug == "property" else ""
+    extra = ' <span class="svx-partner">with ' + eco_logo(16, "eco-inline") + '</span>' if slug == "property" else ""
     return f'''<article class="svx-card div-{d["key"]} svx-{slug}" data-slug="{slug}" style="--n:{i}" tabindex="0" aria-labelledby="svx-h-{slug}">
       <span class="svx-light" aria-hidden="true"></span>
       <div class="svx-media" aria-hidden="true">{SVX_MEDIA[slug]}</div>
@@ -1054,6 +1060,7 @@ for slug, d in DIVISIONS.items():
       <div class="btn-row">{btn('contact.html#property', 'Request Building Works Assessment', 'Request Assessment')}{btn(director_href(), 'Discuss Your Project', 'Discuss Project', 'btn-ghost')}</div>
     </div>
     <div class="partner-card">
+      <div class="eco-head">{eco_logo(40)}<div><b>Ecotech Engineering Africa</b><span>MFS's building and civil works partner</span></div></div>
       {blueprint()}
       <ul class="checks cap-list" style="grid-template-columns:1fr 1fr">{''.join(f'<li>{CHECK.replace("currentColor", "#8A96A8")}<span>{b}</span></li>' for b in BUILD)}</ul>
     </div>

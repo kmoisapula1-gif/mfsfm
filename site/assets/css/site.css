@@ -1799,3 +1799,25 @@ a.mega-link:hover { text-decoration: underline; }
   .site-header.is-scrolled .site-nav .nav-links a { padding: 9px 14px; }
   .nav-row, .site-nav .nav-links a { transition: min-height .35s var(--ease-premium, ease), padding .35s var(--ease-premium, ease), border-radius .35s ease, box-shadow .35s ease, background-color .35s ease, color .2s ease; }
 }
+
+/* Ecotech Engineering Africa partner logo */
+.eco-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.18); flex: none; }
+.eco-badge img { display: block; height: auto; max-height: 40px; width: auto; }
+.eco-cap { font-size: .8rem; color: var(--slate); }
+.eco-head { display: flex; gap: 16px; align-items: center; }
+.eco-head b { display: block; color: #fff; }
+.eco-head span:not(.eco-badge) { font-size: .9rem; }
+.eco-inline { display: inline-flex; align-items: center; vertical-align: middle; }
+.eco-inline img { display: block; width: auto; }
+.svx-partner .eco-inline img { height: 16px; }
+.mega-eco { display: flex !important; align-items: center; gap: 6px; }
+.mega-eco .eco-inline img { height: 14px; }
+.tile-badge--eco { display: inline-flex; align-items: center; gap: 6px; background: #fff !important; color: var(--ink) !important; padding: 4px 10px; }
+.tile-badge--eco .eco-inline img { height: 18px; }
+.footer-partner { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.footer-partner .eco-badge { padding: 5px 9px; border-radius: 8px; box-shadow: none; }
+.footer-partner .eco-badge img { max-height: 22px; }
+.svx-partner .eco-inline img { height: 20px; }
+.mega-eco .eco-inline img { height: 18px; }
+.tile-badge--eco .eco-inline img { height: 22px; }
+.footer-base { flex-wrap: wrap; }
