@@ -1821,3 +1821,15 @@ a.mega-link:hover { text-decoration: underline; }
 .mega-eco .eco-inline img { height: 18px; }
 .tile-badge--eco .eco-inline img { height: 22px; }
 .footer-base { flex-wrap: wrap; }
+
+/* Phone number in the desktop bar: one line; icon-only where space is tight */
+@media (min-width: 961px) {
+  .site-nav .nav-call, .site-nav .nav-cta { white-space: nowrap; flex: none; }
+  .site-nav .nav-call { font-weight: 600; font-size: .92rem; padding: 8px 10px; border-radius: 12px; }
+  .site-nav .nav-call:hover { background: rgba(17,75,54,.07); }
+  .site-nav .nav-call svg { flex: none; color: var(--navy); }
+}
+@media (min-width: 961px) and (max-width: 1379px) {
+  .site-nav .nav-call span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .site-nav .nav-call { width: 44px; height: 44px; justify-content: center; padding: 0; border: 1px solid rgba(17,75,54,.18); }
+}

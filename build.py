@@ -13,9 +13,9 @@ from pathlib import Path
 # (visitors are sent to the assessment form instead).
 # ---------------------------------------------------------------------------
 EMAIL = "info@mfsfm.co.za"
-PHONE_DISPLAY = "[Phone number]"   # e.g. "082 123 4567"
-PHONE_TEL = ""                     # e.g. "+27821234567"
-WHATSAPP = ""                      # e.g. "27821234567" (country code, no +)
+PHONE_DISPLAY = "+27 76 298 5243"
+PHONE_TEL = "+27762985243"
+WHATSAPP = "27762985243"
 SITE = "https://www.mfsfm.co.za"
 
 OUT = Path(__file__).parent / "site"
@@ -297,7 +297,7 @@ def header(current):
             items.append(f'<div class="nav-item has-mega"><a href="{href}"{cur} aria-haspopup="true">{label}{CHEV}</a>{mega_industries()}</div>')
         else:
             items.append(f'<div class="nav-item"><a href="{href}"{cur}>{label}</a></div>')
-    call = f'<a class="nav-call" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>{PHONE_DISPLAY}</span></a>' if PHONE_TEL else ""
+    call = f'<a class="nav-call" href="tel:{PHONE_TEL}" aria-label="Call {PHONE_DISPLAY}">{PHONE_SVG}<span>{PHONE_DISPLAY}</span></a>' if PHONE_TEL else ""
     extra = [f'<a class="btn btn-sun" href="contact.html">Get a Proposal <span class="arr" aria-hidden="true">&rarr;</span></a>']
     if PHONE_TEL:
         extra.append(f'<a class="btn btn-outline" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call the Director</span></a>')
