@@ -1,0 +1,5 @@
+{
+  "Description": "Domain ownership verification file for Microsoft 365 - place in the website root",
+  "Domain": "mfsfm.co.za",
+  "Id": "b111de21-2ce7-4d24-ba71-e169b929ffea"
+}
