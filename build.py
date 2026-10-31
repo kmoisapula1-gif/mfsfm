@@ -196,7 +196,7 @@ STEPS = [("Site assessment", "We visit your site and identify operational requir
          ("Reporting and improvement", "Monthly reporting, inspections and service reviews.")]
 
 CHOOSE = [("Owner-managed", "The founder is involved on every account and answers the phone."),
-          ("Single point of accountability", "One contact, one invoice and one report across every service."),
+          ("A wide range of services", "Cleaning, landscaping, maintenance, hygiene, support and building works."),
           ("Monthly reporting", "Photos, inspection scores and open issues, every month."),
           ("Safety-driven", "Risk assessments, PPE and site procedures as standard."),
           ("Flexible contracts", "Once-off, scheduled or full service contracts."),
@@ -261,8 +261,8 @@ def mega_services():
     return f'''<div class="mega mega-services" role="group" aria-label="Services">
           <div class="mega-grid">{''.join(items)}</div>
           <div class="mega-aside">
-            <span class="eyebrow">One partner</span>
-            <p>Start with one service and add others under the same contract, with one monthly report.</p>
+            <span class="eyebrow">Our services</span>
+            <p>Cleaning, landscaping, property care and support services, once-off or on a schedule.</p>
             <a class="mega-link" href="services.html">All services <span aria-hidden="true">&rarr;</span></a>
             <a class="btn btn-sun mega-btn" href="contact.html">Book a Free Assessment</a>
           </div>
@@ -338,7 +338,7 @@ def mobile_bar():
 
 def closing_cta():
     checks = "".join(f"<li>{CHECK.replace('currentColor', '#D9A441')}<span>{t}</span></li>" for t in
-                     ["Free site assessment", "Tailored proposal", "Single point of accountability"])
+                     ["Free site assessment", "Tailored proposal", "Once-off or scheduled service"])
     return f"""<section class="closing">
   <div class="wrap closing-grid">
     <div class="stack" style="gap:18px">
@@ -451,7 +451,7 @@ def connection_model():
   <div class="acm-roles" aria-hidden="true"><span>Planning</span><span>Coordination</span><span>Accountability</span></div>
   <div class="acm-tips">
     {tip('client', 'Client needs', [('Clean facilities', 'that make the right impression'), ('Safe environments', 'for staff, residents and visitors'), ('A reliable partner', 'who answers and takes ownership')])}
-    {tip('mfs', 'MFS', [('Planning', 'every site scoped and scheduled'), ('Coordination', 'one team across all services'), ('Accountability', 'one point of contact, clear reporting')])}
+    {tip('mfs', 'MFS', [('Planning', 'every site scoped and scheduled'), ('Coordination', 'the right team for every job'), ('Accountability', 'clear communication and reporting')])}
     {tip('outcome', 'Successful outcome', [('Delivered', 'to the agreed scope and standard'), ('Maintained', 'with inspections and reporting'), ('Improved', 'through regular reviews')])}
   </div>
   <ol class="acm-flow" aria-label="How MFS works">
@@ -509,7 +509,7 @@ def ecotech_section():
     <div class="stack" style="gap:18px">
       <span class="bar" style="background:var(--c-build)"></span><span class="eyebrow">Strategic partnership</span>
       <h2>Specialist building &amp; civil works</h2>
-      <p class="lead" style="color:var(--sky)">Building and civil works are delivered through our strategic partnership with Ecotech Engineering. MFS clients access qualified engineering expertise while keeping a single point of accountability.</p>
+      <p class="lead" style="color:var(--sky)">Building and civil works are delivered through our strategic partnership with Ecotech Engineering. MFS clients get qualified engineering expertise for building and civil projects.</p>
       <div class="btn-row">
         {btn('contact.html#property', 'Request Building Works Assessment', 'Request Assessment')}
         {btn('property-care.html#building', 'Discuss a Building Project', 'Discuss Project', 'btn-ghost')}
@@ -566,7 +566,7 @@ def tiles_html():
   <svg class="tile-art" viewBox="0 0 24 24" aria-hidden="true">{ICON['build']}</svg>
   <div class="tile-head">{icon('build')}<span class="tile-badge tile-badge--eco">With {eco_logo(18, "eco-inline")}</span></div>
   <h3><a class="stretch" href="property-care.html#building">Building &amp; Civil Works</a></h3>
-  <p class="tile-tag">Specialist projects, one point of accountability.</p>
+  <p class="tile-tag">Specialist building and civil projects.</p>
   <div class="tile-swap"><p class="tile-pitch">Building and civil works delivered through our strategic partner, Ecotech Engineering, managed by MFS from start to handover.</p><ul class="tile-list">{build_lis}</ul></div>
   <div class="tile-actions"><a class="tile-cta" href="contact.html#building">Discuss a Building Project <span aria-hidden="true">&rarr;</span></a><span class="tile-more" aria-hidden="true">View service</span></div>
 </article>"""
@@ -626,19 +626,19 @@ ENVS = [
     ("estate", "Estates", "Residential estates", "Common areas, landscaping and property care.",
      ["Common area cleaning", "Landscaping and irrigation", "Paving, painting and repairs", "Waste coordination"],
      ["Shared spaces in constant use", "Resident expectations and trustee reporting", "Kerb appeal and property value"],
-     "Estate Care Package", "Cleaning, Grounds and Property Care under one contract, reporting to your trustees.", "Get Estate Proposal", "Estate Proposal"),
+     "Estate Care Package", "Cleaning, Grounds and Property Care, with regular reporting to your trustees.", "Get Estate Proposal", "Estate Proposal"),
     ("home", "Homes", "Residential homes", "Cleaning, garden services, repairs and building works.",
      ["Regular and deep cleans", "Garden services", "Painting and repairs", "Building works via Ecotech"],
-     ["Finding people you trust on your property", "Juggling several contractors", "Once-off jobs done properly"],
+     ["Finding people you trust on your property", "Unreliable contractors", "Once-off jobs done properly"],
      "Home Care Package", "One vetted, uniformed team for the house, the garden and the repairs in between.", "Get Home Quote", "Home Quote"),
     ("office", "Offices", "Commercial offices", "Cleaning, hygiene and maintenance services.",
      ["Daily office cleaning", "Washrooms and consumables", "Repairs and preventative maintenance", "Event and day-to-day support"],
      ["High foot traffic", "Hygiene for staff and visitors", "First impressions"],
-     "Workplace Package", "Cleaning &amp; Hygiene, Property Care and Support Services from one accountable partner.", "Get Office Proposal", "Office Proposal"),
+     "Workplace Package", "Cleaning &amp; Hygiene, Property Care and Support Services for homes, estates and businesses in Gauteng.", "Get Office Proposal", "Office Proposal"),
     ("industrial", "Industrial", "Industrial facilities", "Cleaning, grounds and operational support.",
      ["Heavy-duty cleaning", "Grounds and perimeter maintenance", "Waste coordination", "Civil works via Ecotech"],
      ["Safety on active sites", "Operational uptime", "Large yards and perimeters"],
-     "Integrated Facilities Package", "Cleaning, Grounds, Property Care and Building Works planned around your operations.", "Get Industrial Proposal", "Industrial Proposal"),
+     "Industrial Facilities Package", "Cleaning, Grounds, Property Care and Building Works planned around your operations.", "Get Industrial Proposal", "Industrial Proposal"),
     ("retail", "Retail", "Retail centres", "Public area cleaning, washrooms and support services.",
      ["Public area and washroom cleaning", "Glass and pressure washing", "Repairs between trading hours", "Waste coordination"],
      ["Peak trading foot traffic", "Customer experience", "Work that can't disrupt trading"],
@@ -647,10 +647,10 @@ ENVS = [
      ["Classroom and ablution cleaning", "Holiday deep cleans", "Sports fields and grounds", "Repairs and painting"],
      ["High occupancy", "Health of learners and staff", "Work planned around the school calendar"],
      "Campus Package", "Cleaning, Grounds and Property Care planned term by term.", "Get School Proposal", "School Proposal"),
-    ("government", "Government", "Government and public sector", "Integrated, compliant facilities support.",
+    ("government", "Government", "Government and public sector", "Compliant facilities support.",
      ["Offices, public areas and washrooms", "Grounds maintenance programmes", "Maintenance and infrastructure works", "Site support and waste coordination"],
-     ["Compliance and documentation", "Accountability across sites", "Service continuity"],
-     "Public Sector Package", "Integrated facilities management with one accountable partner and documented reporting.", "Get Public Sector Proposal", "Public Sector Proposal"),
+     ["Compliance and documentation", "Consistency across sites", "Service continuity"],
+     "Public Sector Package", "Facilities services with documented, compliant reporting.", "Get Public Sector Proposal", "Public Sector Proposal"),
 ]
 
 
@@ -661,7 +661,7 @@ selector_tabs = "".join(
     for k, n, _ in INDUSTRIES)
 
 home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
-            "One accountable partner for cleaning, landscaping, maintenance, hygiene and specialist building works for homes, estates, offices, retail and industrial sites in Gauteng.",
+            "Cleaning, landscaping, maintenance, hygiene and specialist building works for homes, estates, offices, retail and industrial sites in Gauteng.",
             "index.html") + header("index.html") + f"""
 <section class="hero hero--acm">
   <div class="acm-bg" aria-hidden="true"><span class="acm-grid"></span><span class="acm-glow"></span></div>
@@ -670,7 +670,7 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
     <div class="hero-copy">
       <span class="eyebrow">Facilities management without the hassle</span>
       <h1>Connecting People, Properties and Performance.</h1>
-      <p class="lead">One partner for cleaning, landscaping, maintenance, hygiene and specialist building works. We help homes, estates, offices, retail centres and industrial facilities stay clean, safe and operational through accountable service delivery.</p>
+      <p class="lead">Professional cleaning, landscaping, maintenance, hygiene and specialist building works. We help homes, estates, offices, retail centres and industrial facilities stay clean, safe and operational through reliable service delivery.</p>
       <div class="hero-cta">
         <div class="btn-row">
           {btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}
@@ -690,7 +690,7 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
 <section class="glance" aria-label="MFS at a glance">
   <div class="wrap glance-grid">
     <div class="stat"><span class="num" data-count="5">5</span><span class="cap">Service divisions</span></div>
-    <div class="stat"><span class="num" data-count="1">1</span><span class="cap">Point of accountability</span></div>
+    <div class="stat"><span class="num" data-count="7">7</span><span class="cap">Property types served</span></div>
     <div class="stat"><span class="num"><span data-count="100">100</span>%</span><span class="cap">Owner-managed</span></div>
     <div class="stat"><span class="num"><span data-count="1">1</span> day</span><span class="cap">To reply to every request</span></div>
   </div>
@@ -706,7 +706,7 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
     <div class="selector">
       <div class="prop-tabs" role="tablist" aria-label="Property type">{selector_tabs}</div>
       <div class="prop-panel" id="prop-panel" role="tabpanel" aria-live="polite">
-        <div class="prop-head"><span class="eyebrow">Recommended for</span><h3 id="prop-title">Residential estates</h3><p id="prop-intro">Keep common areas clean, gardens green and the estate well maintained, with one partner reporting to your trustees.</p></div>
+        <div class="prop-head"><span class="eyebrow">Recommended for</span><h3 id="prop-title">Residential estates</h3><p id="prop-intro">Keep common areas clean, gardens green and the estate well maintained, with regular reporting to your trustees.</p></div>
         <ul class="prop-recs" id="prop-recs"></ul>
         <div class="btn-row">
           <a class="btn btn-sun" id="prop-cta" href="contact.html#estate"><span class="lbl-lg">Get a Proposal for Your Estate</span><span class="lbl-sm">Get Proposal</span></a>
@@ -721,8 +721,8 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
   <div class="wrap">
     <div class="section-head">
       <span class="bar"></span><span class="eyebrow">Our services</span>
-      <h2>One partner for every part of your property</h2>
-      <p class="lead">Start with one service and add others under the same contract, with one account manager and one monthly report.</p>
+      <h2>Services for every part of your property</h2>
+      <p class="lead">Book one service or several, once-off or on a schedule, with clear reporting on every job.</p>
     </div>
     {tiles_html()}
   </div>
@@ -777,8 +777,8 @@ about = head("About Moisapula Facilities Solutions",
       <span class="bar"></span><span class="eyebrow">Our story</span>
       <h2>The spaces we depend on matter</h2>
       <p>People spend a significant part of their lives in offices, residential communities, schools, shopping centres, industrial facilities and public spaces. These environments shape safety, productivity, wellbeing and first impressions. Yet the services that keep them functioning often work behind the scenes: the landscaping that enhances a property's image, the cleaning that creates a healthier environment, the maintenance that prevents costly breakdowns, and the support services that keep operations running smoothly.</p>
-      <p>Moisapula Facilities Solutions was established to bring these essential services together under a single accountable partner. We believe clients deserve more than contractors. They deserve a partner who understands their environment, protects their assets and takes ownership of the outcome.</p>
-      <p>Through our integrated approach and our strategic partnership with Ecotech Engineering for building and civil works, we connect expertise, resources and people to help properties operate at their best.</p>
+      <p>Moisapula Facilities Solutions was established to provide these essential services with care and professionalism. We believe clients deserve more than contractors. They deserve a team that understands their environment, protects their assets and takes ownership of the outcome.</p>
+      <p>Through our trained teams and our strategic partnership with Ecotech Engineering for building and civil works, we connect expertise, resources and people to help properties operate at their best.</p>
       <p style="font-weight:900;color:var(--navy);font-size:1.2rem">Because when spaces perform better, people perform better.</p>
     </div>
     <div class="stack" style="gap:20px">
@@ -805,7 +805,7 @@ about = head("About Moisapula Facilities Solutions",
   <div class="wrap">
     <div class="vm">
       <div class="card"><span class="label">OUR VISION</span><p>To become South Africa's most trusted facilities management partner, recognised for connecting quality service, accountability and sustainable outcomes.</p></div>
-      <div class="card"><span class="label">OUR MISSION</span><p>To deliver integrated facilities solutions that protect assets, support operations and create clean, safe and productive environments through professional service and trusted partnerships.</p></div>
+      <div class="card"><span class="label">OUR MISSION</span><p>To deliver facilities services that protect assets, support operations and create clean, safe and productive environments through professional service and trusted partnerships.</p></div>
       <div class="card"><span class="label">OUR PURPOSE</span><p>We connect people, properties and services to create environments where businesses and communities can thrive.</p></div>
     </div>
   </div>
@@ -974,7 +974,7 @@ def services_explorer():
     return f'''<section class="section svx" id="explore" aria-labelledby="svx-title">
   <div class="wrap">
     <div class="svx-head">
-      <div class="section-head"><span class="bar"></span><span class="eyebrow">Explore our services</span><h2 id="svx-title">Four divisions. One accountable partner.</h2></div>
+      <div class="section-head"><span class="bar"></span><span class="eyebrow">Explore our services</span><h2 id="svx-title">Four divisions. Every service your property needs.</h2></div>
       <div class="svx-match"><span class="svx-q" id="svx-q">What property do you manage?</span><div class="svx-props" role="group" aria-labelledby="svx-q">{chips}</div></div>
     </div>
     <div class="svx-layout">
@@ -1019,12 +1019,12 @@ def division_overview(slug):
 </div>"""
 
 services = head("Services | Moisapula Facilities Solutions",
-                "Cleaning & Hygiene, Grounds & Landscaping, Property Care & Building Works and Support Services from one accountable partner.",
+                "Cleaning & Hygiene, Grounds & Landscaping, Property Care & Building Works and Support Services for homes, estates and businesses in Gauteng.",
                 "services.html") + header("services.html") + f"""
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Our services</span>
-    <h1>One partner. Multiple services. Reliable delivery.</h1>
+    <h1>Multiple services. Reliable delivery.</h1>
     <p class="lead">Four service divisions delivered by our own trained teams, plus specialist building and civil works through our partner, Ecotech Engineering. Once-off, scheduled and contract-based options are available for every service.</p>
     <div class="btn-row">{btn('contact.html', 'Get a Tailored Proposal', 'Get Proposal')}{btn('index.html#selector', 'Find the Right Service', 'Find Service', 'btn-ghost')}</div>
   </div>
@@ -1056,7 +1056,7 @@ for slug, d in DIVISIONS.items():
     <div class="stack" style="gap:18px">
       <span class="bar" style="background:var(--c-build)"></span><span class="eyebrow">Delivered through Ecotech Engineering</span>
       <h2>Building &amp; Civil Works</h2>
-      <p>Through our strategic partnership with Ecotech Engineering, we provide specialist building and civil works supported by qualified technical expertise and project delivery capabilities, under MFS's single point of accountability.</p>
+      <p>Through our strategic partnership with Ecotech Engineering, we provide specialist building and civil works supported by qualified technical expertise and project delivery capabilities.</p>
       <div class="btn-row">{btn('contact.html#property', 'Request Building Works Assessment', 'Request Assessment')}{btn(director_href(), 'Discuss Your Project', 'Discuss Project', 'btn-ghost')}</div>
     </div>
     <div class="partner-card">
@@ -1224,7 +1224,7 @@ how_steps = [
      '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 11l2 2 3.5-3.5"/>'),
     ("Receive a tailored proposal", "A clear scope, schedule and price, within 5 working days of the visit.",
      '<path d="M4 6h16v12H4Z"/><path d="M4 7l8 6 8-6"/>'),
-    ("Start improving your site", "One team, one contract and regular reporting from day one.",
+    ("Start improving your site", "Trained teams and regular reporting from day one.",
      '<path d="M4 18l5-5 4 4 7-8"/><path d="M15 9h5v5"/>'),
 ]
 how_html = "".join(

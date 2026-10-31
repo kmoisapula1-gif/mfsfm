@@ -134,7 +134,7 @@ const CONTACT_EMAIL = "info@mfscentral.co.za";
   // 4. Property selector
   const PROPS = {
     estate: { title: "Residential estates", noun: "Estate",
-      intro: "Keep common areas clean, gardens green and the estate well maintained, with one partner reporting to your trustees.",
+      intro: "Keep common areas clean, gardens green and the estate well maintained, with regular reporting to your trustees.",
       recs: [["clean", "Cleaning & Hygiene", "Clubhouses, entrances, walkways and ablutions"], ["grounds", "Grounds & Landscaping", "Lawns, verges, bush clearing and irrigation"], ["property", "Property Care & Building Works", "Paving, painting, repairs and inspections"]] },
     home: { title: "Residential homes", noun: "Home",
       intro: "Once-off or regular help for your home, from one vetted, uniformed team you can trust on your property.",
@@ -152,7 +152,7 @@ const CONTACT_EMAIL = "info@mfscentral.co.za";
       intro: "Healthy classrooms, safe grounds and maintenance planned around the school calendar.",
       recs: [["clean", "Cleaning & Hygiene", "Classrooms, ablutions and holiday deep cleans"], ["grounds", "Grounds & Landscaping", "Sports fields, gardens and grounds programmes"], ["property", "Property Care", "Repairs, painting and inspections"]] },
     government: { title: "Government and public sector", noun: "Site",
-      intro: "Integrated, compliant facilities support with one accountable partner and documented reporting.",
+      intro: "Compliant facilities support with documented reporting.",
       recs: [["clean", "Cleaning & Hygiene", "Offices, public areas and washrooms"], ["grounds", "Grounds & Landscaping", "Grounds maintenance programmes"], ["property", "Property Care & Building Works", "Maintenance and infrastructure works via Ecotech"], ["support", "Support Services", "Site support and waste coordination"]] }
   };
   const tabs = document.querySelectorAll(".prop-tab");

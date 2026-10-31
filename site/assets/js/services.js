@@ -65,7 +65,7 @@
       var e = data.envs[prop], m = data.match[prop];
       eyebrow.textContent = "Recommended for your property";
       title.textContent = e.title;
-      sub.textContent = m.length + " of 4 divisions, under one contract.";
+      sub.textContent = m.length + " of 4 divisions recommended for this property.";
       label.textContent = "Services included";
       list.className = "cfg-list incl";
       list.innerHTML = order.map(function (s, i) {
