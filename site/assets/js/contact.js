@@ -13,7 +13,7 @@
   var mqDesk = mm("(min-width: 1024px)");
   var mqFine = mm("(hover: hover) and (pointer: fine)");
   var endpoint = typeof FORM_ENDPOINT !== "undefined" ? FORM_ENDPOINT : "";
-  var email = typeof CONTACT_EMAIL !== "undefined" ? CONTACT_EMAIL : "info@mfsfm.co.za";
+  var email = typeof CONTACT_EMAIL !== "undefined" ? CONTACT_EMAIL : "info@mfscentral.co.za";
 
   function glOK() {
     if (navigator.connection && navigator.connection.saveData) return false;

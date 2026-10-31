@@ -12,7 +12,7 @@ from pathlib import Path
 # Leave PHONE_TEL / WHATSAPP empty and the Call / WhatsApp buttons are hidden
 # (visitors are sent to the assessment form instead).
 # ---------------------------------------------------------------------------
-EMAIL = "info@mfsfm.co.za"
+EMAIL = "info@mfscentral.co.za"
 PHONE_DISPLAY = "+27 76 298 5243"
 PHONE_TEL = "+27762985243"
 WHATSAPP = "27762985243"

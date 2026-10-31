@@ -7,7 +7,7 @@
 // (for example a free Formspree or Web3Forms endpoint). Leave empty and the
 // form shows the visitor a ready-to-send summary with your email address.
 const FORM_ENDPOINT = "";
-const CONTACT_EMAIL = "info@mfsfm.co.za";
+const CONTACT_EMAIL = "info@mfscentral.co.za";
 
 (function () {
   const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
