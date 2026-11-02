@@ -195,7 +195,7 @@ STEPS = [("Site assessment", "We visit your site and identify operational requir
          ("Accountable delivery", "Dedicated teams, supervision and quality controls."),
          ("Reporting and improvement", "Monthly reporting, inspections and service reviews.")]
 
-CHOOSE = [("Owner-managed", "The founder is involved on every account and answers the phone."),
+CHOOSE = [("Owner-managed", "Our CEO and Operations Manager are involved on every account."),
           ("A wide range of services", "Cleaning, landscaping, maintenance, hygiene, support and building works."),
           ("Monthly reporting", "Photos, inspection scores and open issues, every month."),
           ("Safety-driven", "Risk assessments, PPE and site procedures as standard."),
@@ -300,7 +300,7 @@ def header(current):
     call = f'<a class="nav-call" href="tel:{PHONE_TEL}" aria-label="Call {PHONE_DISPLAY}">{PHONE_SVG}<span>{PHONE_DISPLAY}</span></a>' if PHONE_TEL else ""
     extra = [f'<a class="btn btn-sun" href="contact.html">Get a Proposal <span class="arr" aria-hidden="true">&rarr;</span></a>']
     if PHONE_TEL:
-        extra.append(f'<a class="btn btn-outline" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call the Director</span></a>')
+        extra.append(f'<a class="btn btn-outline" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call Us</span></a>')
     if WHATSAPP:
         extra.append(f'<a class="btn btn-outline" href="{whatsapp_href()}" target="_blank" rel="noopener">{CHAT_SVG}<span>WhatsApp</span></a>')
     extra.append(f'<a class="btn btn-outline" href="mailto:{EMAIL}">{MAIL_SVG}<span>{EMAIL}</span></a>')
@@ -349,7 +349,7 @@ def closing_cta():
     </div>
     <div class="closing-actions">
       {btn('contact.html', 'Request a Proposal', 'Get Quote')}
-      {btn(director_href(), 'Talk to a Director', 'Talk to Director', 'btn-ghost')}
+      {btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}
       <p class="closing-note">{EMAIL}<br>{PHONE_DISPLAY} · Gauteng</p>
     </div>
   </div>
@@ -379,7 +379,7 @@ FOOTER = f"""</main>
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About us</a></li>
-          <li><a href="about.html#founder">Meet the founder</a></li>
+          <li><a href="about.html#leadership">Our leadership</a></li>
           <li><a href="industries.html">Industries</a></li>
           <li><a href="services.html#process">Our process</a></li>
         </ul>
@@ -674,7 +674,7 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
       <div class="hero-cta">
         <div class="btn-row">
           {btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}
-          {btn(director_href(), 'Talk to a Director', 'Talk to Director', 'btn-ghost')}
+          {btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}
         </div>
         <p class="cta-sub">Receive a tailored facilities proposal within 5 working days.</p>
       </div>
@@ -745,13 +745,10 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
   <div class="wrap">
     <div class="section-head"><span class="bar"></span><span class="eyebrow">Why choose MFS</span><h2>Why property managers choose MFS</h2></div>
     {choose_html()}
-    <div class="founder-strip">
-      <img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Founder and Managing Director" width="96" height="96" loading="lazy">
-      <div class="stack" style="gap:6px">
-        <p class="fq">"Property managers don't need more suppliers. They need partners who answer their phones and take ownership of problems."</p>
-        <p><b>Kamogelo Moisapula</b>, Founder and Managing Director</p>
-      </div>
-      {btn('about.html#founder', 'Meet the Founder', 'Meet Founder', arrow=True)}
+    <div class="founder-strip leader-strip">
+      <div class="leader-mini"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="72" height="72" loading="lazy"><p><b>Toy Moisapula</b><span>CEO</span></p></div>
+      <div class="leader-mini"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="72" height="72" loading="lazy"><p><b>Kamogelo Moisapula</b><span>Operations Manager</span></p></div>
+      {btn('about.html#leadership', 'Our Leadership', 'Our Leadership', arrow=True)}
     </div>
   </div>
 </section>
@@ -760,14 +757,14 @@ write("index.html", home)
 
 # =========================== ABOUT ===========================
 about = head("About Moisapula Facilities Solutions",
-             "Moisapula Facilities Solutions connects people, properties and services. Our story, our founder and our commitments.",
+             "Moisapula Facilities Solutions connects people, properties and services. Our story, our leadership and our commitments.",
              "about.html") + header("about.html") + f"""
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">About us</span>
     <h1>We connect people, properties and services</h1>
     <p class="lead">Moisapula Facilities Solutions is a South African facilities management company providing professional cleaning, landscaping, hygiene, property care and support services to residential estates, private homes, commercial properties, retail centres, industrial facilities and public sector clients.</p>
-    <div class="btn-row">{btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}{btn(director_href(), 'Talk to a Director', 'Talk to Director', 'btn-ghost')}</div>
+    <div class="btn-row">{btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}</div>
   </div>
 </section>
 
@@ -811,20 +808,14 @@ about = head("About Moisapula Facilities Solutions",
   </div>
 </section>
 
-<section class="section" id="founder">
-  <div class="wrap founder">
-    <img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Founder and Managing Director" width="300" height="375" loading="lazy">
-    <div class="prose">
-      <span class="eyebrow">A message from our founder</span>
-      <h2>The partner I would want to hire myself</h2>
-      <p>Property managers don't need more suppliers. They need partners who answer their phones, take ownership of problems and consistently deliver on their commitments. MFS was founded on this belief.</p>
-      <p>As an insurance claims assessor, I spent my working days inspecting properties after something had gone wrong. Again and again, I saw how much a well-maintained facility protects its owner, and how quickly small, neglected problems become expensive ones when nobody takes responsibility.</p>
-      <p>In investment banking, I learned the discipline of numbers, contracts and accountability. Clients need to know exactly what they are paying for, and they need to see it delivered.</p>
-      <p>MFS brings those lessons together. We are a young company, and we will not pretend otherwise. What we promise is an owner who answers the phone, teams that are trained and properly equipped, transparent reporting, and trusted partners such as Ecotech Engineering wherever specialist skills are needed. When you work with MFS, you deal with people invested in the result, not just the contract.</p>
-      <p>I invite you to judge us by our work. Let us start with a free site assessment.</p>
-      <p><b style="color:var(--navy);font-size:1.15rem">Kamogelo Moisapula</b><br>Founder and Managing Director · BCom Economics</p>
-      <div class="btn-row">{btn(director_href(), 'Talk to a Director', 'Talk to Director', 'btn-navy')}</div>
+<section class="section" id="leadership">
+  <div class="wrap">
+    <div class="section-head"><span class="bar"></span><span class="eyebrow">Our leadership</span><h2>The people behind MFS</h2></div>
+    <div class="leaders">
+      <figure class="leader"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="400" height="500" loading="lazy"><figcaption><b>Toy Moisapula</b><span>Chief Executive Officer</span></figcaption></figure>
+      <figure class="leader"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="400" height="500" loading="lazy"><figcaption><b>Kamogelo Moisapula</b><span>Operations Manager</span></figcaption></figure>
     </div>
+    <div class="btn-row" style="margin-top:28px">{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-navy')}</div>
   </div>
 </section>
 
@@ -1076,7 +1067,7 @@ for slug, d in DIVISIONS.items():
     <h1>{name_html}</h1>
     <p class="tagline">{d['tagline']}</p>
     <p class="lead">{d['pitch']}</p>
-    <div class="btn-row">{btn('contact.html#' + slug, long, short)}{btn(director_href(), 'Talk to a Director', 'Talk to Director', 'btn-ghost')}</div>
+    <div class="btn-row">{btn('contact.html#' + slug, long, short)}{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}</div>
   </div>
   <figure class="hero-photo">{photo(DIV_PHOTO[slug][0], DIV_PHOTO[slug][1], pos=DIV_PHOTO[slug][3], sizes="(max-width: 960px) 100vw, 40vw", eager=True)}</figure>
   </div>
@@ -1220,7 +1211,7 @@ hub_svg = (f'<svg class="ca-fb-lines" viewBox="0 0 400 300" aria-hidden="true"><
 how_steps = [
     ("Tell us about your property", "Five short questions about your site, the services you need and how often.",
      '<path d="M5 4h10l4 4v12H5Z"/><path d="M15 4v4h4M8 12h8M8 16h5"/>'),
-    ("We assess your requirements", "A director reviews your request and visits your site, free of charge.",
+    ("We assess your requirements", "Our team reviews your request and visits your site, free of charge.",
      '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 11l2 2 3.5-3.5"/>'),
     ("Receive a tailored proposal", "A clear scope, schedule and price, within 5 working days of the visit.",
      '<path d="M4 6h16v12H4Z"/><path d="M4 7l8 6 8-6"/>'),
@@ -1237,17 +1228,17 @@ cap_rows = "".join(f'<div class="cap-row" data-row="{k}"><dt>{lbl}</dt><dd data-
 cap_arts = "".join(f'<span class="cap-art" data-k="{k}">{prop_icon(k)}</span>' for k, _n, _t in INDUSTRIES)
 dir_actions = []
 if WHATSAPP:
-    dir_actions.append(f'<a class="btn btn-sun" href="{whatsapp_href()}" target="_blank" rel="noopener">{CHAT_SVG}<span>WhatsApp the Director</span></a>')
+    dir_actions.append(f'<a class="btn btn-sun" href="{whatsapp_href()}" target="_blank" rel="noopener">{CHAT_SVG}<span>WhatsApp Us</span></a>')
 if PHONE_TEL:
     dir_actions.append(f'<a class="btn btn-ghost" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call {PHONE_DISPLAY}</span></a>')
-dir_actions.append(f'<a class="btn {"btn-ghost" if WHATSAPP else "btn-sun"}" href="mailto:{EMAIL}?subject=Site%20assessment%20enquiry">{MAIL_SVG}<span>Email the Director</span></a>')
+dir_actions.append(f'<a class="btn {"btn-ghost" if WHATSAPP else "btn-sun"}" href="mailto:{EMAIL}?subject=Site%20assessment%20enquiry">{MAIL_SVG}<span>Email Us</span></a>')
 dir_actions.append(f'<button class="btn btn-ghost" type="button" data-copy="{EMAIL}">Copy Email</button>')
 dir_rows = f'<div class="dir-row"><b>Email</b><span>{EMAIL}</span></div>'
 if PHONE_TEL:
     dir_rows += f'<div class="dir-row"><b>Phone</b><span>{PHONE_DISPLAY}</span></div>'
 dir_rows += '<div class="dir-row"><b>Service area</b><span>Johannesburg, Ekurhuleni and Tshwane, plus the West Rand and Sedibeng on request.</span></div>'
 dir_feats = "".join(f'<li>{CHECK}<span><b>{t}</b>{d}</span></li>' for t, d in [
-    ("Direct access", "You deal with the founder from the first message."),
+    ("Direct access", "You deal with our management from the first message."),
     ("Fast response", "Every request is reviewed within one working day."),
     ("Site-specific advice", "Recommendations based on a visit to your property."),
     ("No call centre", "No ticket numbers and no hand-offs.")])
@@ -1282,7 +1273,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
 
 <section class="section section--mist ca-assess" id="assess">
   <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Your site assessment</span><h2>Tell us about your site</h2><p class="lead">Your answers build your assessment as you go. A director reviews every request personally.</p></div>
+    <div class="section-head"><span class="bar"></span><span class="eyebrow">Your site assessment</span><h2>Tell us about your site</h2><p class="lead">Your answers build your assessment as you go. Our management team reviews every request personally.</p></div>
     <div class="form-wrap">
     <form class="quote-form" id="quote-form" novalidate>
       <div class="progress" aria-hidden="true">
@@ -1347,7 +1338,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
         </div>
         <h4>What happens next</h4>
         <ol class="fr-steps">
-          <li style="--i:0"><b>Director review</b><span>Within one working day</span></li>
+          <li style="--i:0"><b>Management review</b><span>Within one working day</span></li>
           <li style="--i:1"><b>Initial discussion</b><span>A short call about your site and priorities</span></li>
           <li style="--i:2"><b>Site assessment</b><span>We visit and assess, free of charge</span></li>
           <li style="--i:3"><b>Tailored proposal</b><span>Within 5 working days of the visit</span></li>
@@ -1365,7 +1356,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
       </div>
       <div class="cap-vis" aria-hidden="true"><canvas class="cap-canvas"></canvas><div class="cap-arts">{cap_arts}<span class="cap-empty">Select a property to see it here</span></div></div>
       <dl class="cap-rows">{cap_rows}</dl>
-      <p class="cap-note">A director reviews every request within one working day.</p>
+      <p class="cap-note">Our management team reviews every request within one working day.</p>
     </aside>
     </div>
   </div>
@@ -1375,13 +1366,13 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
   <div class="wrap">
     <div class="dir-card">
       <div class="dir-photo">
-        <img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Founder and Managing Director" width="300" height="375" loading="lazy">
+        <div class="dir-duo"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="300" height="375" loading="lazy"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="300" height="375" loading="lazy"></div>
         <span class="dir-badge"><i aria-hidden="true"></i>Owner managed</span>
       </div>
       <div class="dir-body">
-        <span class="eyebrow">Talk to a director</span>
+        <span class="eyebrow">Talk to us</span>
         <h2>Owner-managed. Real accountability.</h2>
-        <p class="dir-lead">Your enquiry goes straight to Kamogelo Moisapula, Founder and Managing Director, not a call centre.</p>
+        <p class="dir-lead">Your enquiry goes straight to our management team, Toy Moisapula (CEO) and Kamogelo Moisapula (Operations Manager), not a call centre.</p>
         <ul class="dir-feats">{dir_feats}</ul>
         <div class="dir-rows">{dir_rows}</div>
         <div class="btn-row">{''.join(dir_actions)}</div>
