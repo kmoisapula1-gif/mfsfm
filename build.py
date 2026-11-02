@@ -682,7 +682,6 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
     </div>
     {connection_model()}
   </div>
-  <p class="acm-cue" aria-hidden="true">Scroll to see how we connect</p>
   </div>
 </section>
 <section class="section section--tiles">
