@@ -695,19 +695,6 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
   </div>
 </section>
 
-<section class="section gallery-sec">
-  <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">On site</span><h2>Facilities care, done properly</h2><p class="lead">Trained, uniformed teams with the right equipment for every job, from daily cleaning to paving repairs.</p></div>
-    <div class="gallery">
-      <figure class="g-a">{photo("team", "A uniformed cleaning team standing beside their vehicle with cleaning equipment", sizes="(max-width: 760px) 100vw, 25vw", pos="50% 70%")}<figcaption>Site teams</figcaption></figure>
-      <figure class="g-b">{photo("clean-pressure", "Pressure washing stone steps", sizes="(max-width: 760px) 100vw, 50vw", pos="60% 40%")}<figcaption>Pressure washing</figcaption></figure>
-      <figure class="g-c">{photo("grounds-shears", "Close-up of hands trimming a hedge with garden shears", sizes="(max-width: 760px) 100vw, 25vw", pos="35% 50%")}<figcaption>Hedge and garden care</figcaption></figure>
-      <figure class="g-d">{photo("property-paving", "A worker in safety boots laying paving blocks", sizes="(max-width: 760px) 100vw, 25vw", pos="50% 60%")}<figcaption>Paving repairs</figcaption></figure>
-      <figure class="g-e">{photo("grounds-trimmer", "A line trimmer cutting grass along a verge", sizes="(max-width: 760px) 100vw, 50vw", pos="55% 60%")}<figcaption>Grounds maintenance</figcaption></figure>
-    </div>
-  </div>
-</section>
-
 <section class="section section--navy">
   <div class="wrap">
     <div class="section-head"><span class="bar"></span><span class="eyebrow">Why choose MFS</span><h2>Why property managers choose MFS</h2></div>
