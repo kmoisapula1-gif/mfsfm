@@ -2093,3 +2093,8 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .tile-list li { align-items: flex-start; line-height: 1.4; }
 .tile-list li::before { margin-top: .5em; }
 .t-clean .tile-list { gap: 12px 24px; align-items: start; }
+
+/* "View service" is a real link on every tile, including touch screens */
+.tile-more { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 4px; color: var(--navy) !important; opacity: 1; text-decoration: none; }
+.tile-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: none), (pointer: coarse) { .tile-more { display: inline-flex; } }

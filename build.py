@@ -548,7 +548,7 @@ def tile(slug, key, cls, href, items):
   <h3><a class="stretch" href="{href}">{d['name'].replace('&', '&amp;')}</a></h3>
   <p class="tile-tag">{d['tagline']}</p>
   <div class="tile-swap"><p class="tile-pitch">{d['pitch']}</p><ul class="tile-list">{lis}</ul></div>
-  <div class="tile-actions"><a class="tile-cta" href="contact.html#{slug}">{d['card_cta']} <span aria-hidden="true">&rarr;</span></a><span class="tile-more" aria-hidden="true">View service</span></div>
+  <div class="tile-actions"><a class="tile-cta" href="contact.html#{slug}">{d['card_cta']} <span aria-hidden="true">&rarr;</span></a><a class="tile-more" href="{href}">View service <span aria-hidden="true">&rarr;</span></a></div>
 </article>"""
 
 
@@ -563,7 +563,7 @@ def tiles_html():
   <h3><a class="stretch" href="property-care.html#building">Building &amp; Civil Works</a></h3>
   <p class="tile-tag">Specialist building and civil projects.</p>
   <div class="tile-swap"><p class="tile-pitch">Building and civil works delivered through our strategic partner, Ecotech Engineering, managed by MFS from start to handover.</p><ul class="tile-list">{build_lis}</ul></div>
-  <div class="tile-actions"><a class="tile-cta" href="contact.html#building">Discuss a Building Project <span aria-hidden="true">&rarr;</span></a><span class="tile-more" aria-hidden="true">View service</span></div>
+  <div class="tile-actions"><a class="tile-cta" href="contact.html#building">Discuss a Building Project <span aria-hidden="true">&rarr;</span></a><a class="tile-more" href="property-care.html#building">View service <span aria-hidden="true">&rarr;</span></a></div>
 </article>"""
     return f'<div class="bento">{cells}</div>'
 
