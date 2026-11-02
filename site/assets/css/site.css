@@ -2077,3 +2077,19 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 @media (max-width: 760px) { .leader-strip { grid-template-columns: 1fr; } }
 .closing-grid { align-items: center; }
 .closing-actions { align-self: center; }
+
+/* Talk to us: plain contact section */
+.talk { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: clamp(28px, 4vw, 48px); border: 1px solid var(--line); border-radius: 24px; background: var(--stone); }
+.talk-main { display: flex; flex-direction: column; gap: 16px; }
+.talk-main .btn-row { margin-top: 8px; gap: 12px; }
+.talk-main .btn svg { width: 18px; height: 18px; }
+.talk-rows { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.talk-rows .dir-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: .98rem; color: var(--ink); }
+.talk-rows .dir-row b { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--navy); padding-top: 3px; }
+@media (max-width: 860px) { .talk { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 480px) { .talk-rows .dir-row { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Service lists: even spacing, bullets aligned to the first line */
+.tile-list li { align-items: flex-start; line-height: 1.4; }
+.tile-list li::before { margin-top: .5em; }
+.t-clean .tile-list { gap: 12px 24px; align-items: start; }

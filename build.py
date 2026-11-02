@@ -1210,9 +1210,8 @@ dir_actions = []
 if WHATSAPP:
     dir_actions.append(f'<a class="btn btn-sun" href="{whatsapp_href()}" target="_blank" rel="noopener">{CHAT_SVG}<span>WhatsApp Us</span></a>')
 if PHONE_TEL:
-    dir_actions.append(f'<a class="btn btn-ghost" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call {PHONE_DISPLAY}</span></a>')
+    dir_actions.append(f'<a class="btn btn-ghost" href="tel:{PHONE_TEL}">{PHONE_SVG}<span>Call Us</span></a>')
 dir_actions.append(f'<a class="btn {"btn-ghost" if WHATSAPP else "btn-sun"}" href="mailto:{EMAIL}?subject=Site%20assessment%20enquiry">{MAIL_SVG}<span>Email Us</span></a>')
-dir_actions.append(f'<button class="btn btn-ghost" type="button" data-copy="{EMAIL}">Copy Email</button>')
 dir_rows = f'<div class="dir-row"><b>Email</b><span>{EMAIL}</span></div>'
 if PHONE_TEL:
     dir_rows += f'<div class="dir-row"><b>Phone</b><span>{PHONE_DISPLAY}</span></div>'
@@ -1339,19 +1338,14 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
 
 <section class="section ca-director" id="director">
   <div class="wrap">
-    <div class="dir-card">
-      <div class="dir-photo">
-        <img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="300" height="375" loading="lazy">
-        <span class="dir-badge"><i aria-hidden="true"></i>Owner managed</span>
-      </div>
-      <div class="dir-body">
+    <div class="talk">
+      <div class="talk-main">
         <span class="eyebrow">Talk to us</span>
-        <h2>Owner-managed. Real accountability.</h2>
-        <p class="dir-lead">Your enquiry goes straight to Kamogelo Moisapula, Managing Director, not a call centre.</p>
-        <ul class="dir-feats">{dir_feats}</ul>
-        <div class="dir-rows">{dir_rows}</div>
+        <h2>Prefer to speak to someone?</h2>
+        <p class="lead">Call, WhatsApp or email us. Every request is reviewed within one working day.</p>
         <div class="btn-row">{''.join(dir_actions)}</div>
       </div>
+      <dl class="talk-rows">{dir_rows}</dl>
     </div>
   </div>
 </section>
