@@ -2015,3 +2015,27 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .ca-preview .btn-ghost, .svx-cfg .btn-ghost, .cfg .btn-ghost { color: #fff; border-color: rgba(255,255,255,.4); }
 .mobile-bar a { white-space: nowrap; }
 .mobile-bar .go { font-size: .92rem; padding-inline: 10px; }
+
+/* Green accent bands: Why choose, Building & Civil Works, closing CTA, footer */
+.section--navy { background: var(--navy) !important; color: var(--sky); }
+.section--navy h2, .section--navy h3 { color: #FFFFFF; }
+.section--navy p, .section--navy .lead { color: var(--sky); }
+.section--navy .eyebrow { color: var(--sun) !important; }
+.section--navy .btn-ghost, .closing .btn-ghost { color: #FFFFFF; border-color: rgba(255,255,255,.35); }
+.section--navy .btn-ghost:hover, .closing .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: #FFFFFF; color: #FFFFFF; }
+.section--navy .choose-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); }
+.section--navy .choose-card:hover { border-color: var(--sun); }
+.section--navy .choose-card h3 { color: #FFFFFF; }
+.section--navy .choose-card p { color: var(--sky); }
+.section--navy .founder-strip { border-top-color: rgba(255,255,255,.12); }
+.section--navy .leader-mini b { color: #FFFFFF; }
+.section--navy .leader-mini span { color: var(--sky); }
+.section--navy .partner-card { box-shadow: none; }
+
+.closing { background: var(--navy) !important; color: var(--sky); border-top: 0 !important; }
+.closing h2 { color: #FFFFFF; }
+.closing .lead { color: var(--sky); }
+.closing-checks li { color: #FFFFFF; }
+.closing-note { color: var(--sky); }
+
+.site-footer { background: var(--navy-deep) !important; }
