@@ -1856,3 +1856,8 @@ a.mega-link:hover { text-decoration: underline; }
 .dir-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .dir-duo img { border-radius: 16px; }
 .dir-duo img:nth-child(2) { margin-top: 28px; }
+
+/* No gridlines or dot patterns anywhere */
+.acm-grid, .ca-grid { display: none !important; }
+.prop-panel::before, .page-hero::before, .closing::before, .dir-card::after { background-image: none !important; }
+.section--navy::before, .env::before { background-image: none !important; }
