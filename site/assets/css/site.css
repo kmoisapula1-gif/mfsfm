@@ -2075,3 +2075,5 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .fs-more--light { color: #FFFFFF; }
 .leader-strip { grid-template-columns: auto 1fr; }
 @media (max-width: 760px) { .leader-strip { grid-template-columns: 1fr; } }
+.closing-grid { align-items: center; }
+.closing-actions { align-self: center; }

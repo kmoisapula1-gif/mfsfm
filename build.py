@@ -348,8 +348,6 @@ def closing_cta():
     </div>
     <div class="closing-actions">
       {btn('contact.html', 'Request a Proposal', 'Get Quote')}
-      {btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}
-      <p class="closing-note">{EMAIL}<br>{PHONE_DISPLAY} · Gauteng</p>
     </div>
   </div>
 </section>
@@ -363,7 +361,6 @@ FOOTER = f"""</main>
       <div class="footer-brand">
         <img src="assets/img/logo-horizontal-reversed.svg" alt="Moisapula Facilities Solutions" width="277" height="44">
         <p class="footer-tag">Connecting People,<br>Properties &amp; Performance.</p>
-        <a class="footer-cta" href="contact.html">Get a Quote &rarr;</a>
       </div>
       <div>
         <h4>Services</h4>
@@ -378,16 +375,15 @@ FOOTER = f"""</main>
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About us</a></li>
-          <li><a href="about.html#leadership">Managing Director</a></li>
           <li><a href="services.html#who">Who we serve</a></li>
-          
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
-          <li>{EMAIL}</li>
-          <li>{PHONE_DISPLAY}</li>
+          <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+          <li><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li>
           <li>Gauteng, South Africa</li>
         </ul>
       </div>
