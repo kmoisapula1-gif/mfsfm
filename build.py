@@ -381,7 +381,7 @@ FOOTER = f"""</main>
           <li><a href="about.html">About us</a></li>
           <li><a href="about.html#leadership">Our leadership</a></li>
           <li><a href="industries.html">Industries</a></li>
-          <li><a href="services.html#process">Our process</a></li>
+          <li><a href="contact.html#how">How it works</a></li>
         </ul>
       </div>
       <div>
@@ -678,45 +678,12 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
         </div>
         <p class="cta-sub">Receive a tailored facilities proposal within 5 working days.</p>
       </div>
-      <p class="service-line">Cleaning · Landscaping · Hygiene · Property Care · Support Services · Building &amp; Civil Works</p>
     </div>
     {connection_model()}
   </div>
   <p class="acm-cue" aria-hidden="true">Scroll to see how we connect</p>
   </div>
 </section>
-<div class="strip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-
-<section class="glance" aria-label="MFS at a glance">
-  <div class="wrap glance-grid">
-    <div class="stat"><span class="num" data-count="5">5</span><span class="cap">Service divisions</span></div>
-    <div class="stat"><span class="num" data-count="7">7</span><span class="cap">Property types served</span></div>
-    <div class="stat"><span class="num"><span data-count="100">100</span>%</span><span class="cap">Owner-managed</span></div>
-    <div class="stat"><span class="num"><span data-count="1">1</span> day</span><span class="cap">To reply to every request</span></div>
-  </div>
-</section>
-
-<section class="section section--mist" id="selector">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="bar"></span><span class="eyebrow">Find the right service</span>
-      <h2>What type of property do you look after?</h2>
-      <p class="lead">Choose your property type to see the services we recommend.</p>
-    </div>
-    <div class="selector">
-      <div class="prop-tabs" role="tablist" aria-label="Property type">{selector_tabs}</div>
-      <div class="prop-panel" id="prop-panel" role="tabpanel" aria-live="polite">
-        <div class="prop-head"><span class="eyebrow">Recommended for</span><h3 id="prop-title">Residential estates</h3><p id="prop-intro">Keep common areas clean, gardens green and the estate well maintained, with regular reporting to your trustees.</p></div>
-        <ul class="prop-recs" id="prop-recs"></ul>
-        <div class="btn-row">
-          <a class="btn btn-sun" id="prop-cta" href="contact.html#estate"><span class="lbl-lg">Get a Proposal for Your Estate</span><span class="lbl-sm">Get Proposal</span></a>
-          <a class="btn btn-outline" href="services.html">View Services</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section section--tiles">
   <div class="wrap">
     <div class="section-head">
@@ -779,21 +746,7 @@ about = head("About Moisapula Facilities Solutions",
       <p style="font-weight:900;color:var(--navy);font-size:1.2rem">Because when spaces perform better, people perform better.</p>
     </div>
     <div class="stack" style="gap:20px">
-      <div class="hero-like">{trust_graphic()}</div>
       <div class="card"><h3>The meaning behind our logo</h3><p>The two points at either end of our logo represent the client on one side and the desired outcome on the other. The bar that joins them runs through M, F and S: Moisapula Facilities Solutions is the connection between the two. It symbolises partnership, coordination and accountability, because nothing operates in isolation.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section exist" style="padding-top:0">
-  <div class="wrap exist-grid">
-    <div class="stack" style="gap:14px">
-      <span class="bar"></span><span class="eyebrow">Why we exist</span>
-      <h2>People spend their lives in buildings</h2>
-    </div>
-    <div class="prose">
-      <p class="exist-words"><span>Working.</span> <span>Learning.</span> <span>Shopping.</span> <span>Living.</span></p>
-      <p>Behind every successful property is an environment that is clean, safe and properly maintained. MFS exists to create those environments.</p>
     </div>
   </div>
 </section>
@@ -803,7 +756,6 @@ about = head("About Moisapula Facilities Solutions",
     <div class="vm">
       <div class="card"><span class="label">OUR VISION</span><p>To become South Africa's most trusted facilities management partner, recognised for connecting quality service, accountability and sustainable outcomes.</p></div>
       <div class="card"><span class="label">OUR MISSION</span><p>To deliver facilities services that protect assets, support operations and create clean, safe and productive environments through professional service and trusted partnerships.</p></div>
-      <div class="card"><span class="label">OUR PURPOSE</span><p>We connect people, properties and services to create environments where businesses and communities can thrive.</p></div>
     </div>
   </div>
 </section>
@@ -816,15 +768,6 @@ about = head("About Moisapula Facilities Solutions",
       <figure class="leader"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="400" height="500" loading="lazy"><figcaption><b>Kamogelo Moisapula</b><span>Operations Manager</span></figcaption></figure>
     </div>
     <div class="btn-row" style="margin-top:28px">{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-navy')}</div>
-  </div>
-</section>
-
-<section class="section section--navy">
-  <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Our commitments</span><h2>What you can expect on every site</h2></div>
-    <div class="commit" style="margin-top:0;border-top:0;padding-top:0">
-      <ul>{''.join(f"<li>{CHECK.replace('currentColor', '#D9A441')}<span>{c}</span></li>" for c in COMMITMENTS)}</ul>
-    </div>
   </div>
 </section>
 
@@ -1017,13 +960,10 @@ services = head("Services | Moisapula Facilities Solutions",
     <span class="eyebrow">Our services</span>
     <h1>Multiple services. Reliable delivery.</h1>
     <p class="lead">Four service divisions delivered by our own trained teams, plus specialist building and civil works through our partner, Ecotech Engineering. Once-off, scheduled and contract-based options are available for every service.</p>
-    <div class="btn-row">{btn('contact.html', 'Get a Tailored Proposal', 'Get Proposal')}{btn('index.html#selector', 'Find the Right Service', 'Find Service', 'btn-ghost')}</div>
+    <div class="btn-row">{btn('contact.html', 'Get a Tailored Proposal', 'Get Proposal')}{btn('industries.html', 'Find the Right Service', 'Find Service', 'btn-ghost')}</div>
   </div>
 </section>
-<div class="strip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 {services_explorer()}
-{ecotech_section()}
-{process_section("process", "How we work", "Every contract follows the same cycle", "Our approach is simple: understand your requirements, deploy the right resources, maintain consistent standards and provide clear accountability.", "contact.html", "Book a Free Site Assessment", "Book Assessment")}
 """ + closing_cta() + FOOTER
 write("services.html", services.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/services.js" defer></script>'))
 
@@ -1093,7 +1033,6 @@ for slug, d in DIVISIONS.items():
     </div>
   </div>
 </section>
-{process_section(None, "How we work", "Four steps from first call to first report", "", "contact.html#" + slug, long, short, cls="section")}
 """ + closing_cta() + FOOTER
     write(d["file"], page)
 
@@ -1159,12 +1098,6 @@ industries = head("Industries | Moisapula Facilities Solutions",
 <section class="section">
   <div class="wrap">
     <div class="after-steps"><p><b>Don't see your environment?</b> Let's build a solution for your site.</p>{btn('contact.html', 'Discuss Your Requirements', 'Discuss Your Site', 'btn-navy', arrow=True)}</div>
-  </div>
-</section>
-<section class="section section--navy">
-  <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Why choose MFS</span><h2>Why property managers choose MFS</h2></div>
-    {choose_html()}
   </div>
 </section>
 """ + closing_cta() + FOOTER

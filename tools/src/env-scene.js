@@ -165,7 +165,7 @@ function shadowTexture() {
   const cv = document.createElement("canvas"); cv.width = cv.height = 128;
   const g = cv.getContext("2d");
   const grd = g.createRadialGradient(64, 64, 6, 64, 64, 64);
-  grd.addColorStop(0, "rgba(4,10,24,0.55)"); grd.addColorStop(0.6, "rgba(4,10,24,0.18)"); grd.addColorStop(1, "rgba(4,10,24,0)");
+  grd.addColorStop(0, "rgba(30,35,41,0.22)"); grd.addColorStop(0.4, "rgba(30,35,41,0.07)"); grd.addColorStop(0.7, "rgba(30,35,41,0)");
   g.fillStyle = grd; g.fillRect(0, 0, 128, 128);
   return new CanvasTexture(cv);
 }
