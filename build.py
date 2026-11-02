@@ -90,8 +90,7 @@ def whatsapp_href(text="Hello MFS, I would like to discuss facilities services f
     return f"https://wa.me/{WHATSAPP}?text={quote(text)}" if WHATSAPP else ""
 
 
-NAV = [("index.html", "Home"), ("about.html", "About"), ("services.html", "Services"),
-       ("industries.html", "Industries"), ("contact.html", "Contact")]
+NAV = [("index.html", "Home"), ("about.html", "About"), ("services.html", "Services"), ("contact.html", "Contact")]
 
 DIVISIONS = {
     "cleaning": {
@@ -291,7 +290,7 @@ def header(current):
     items = []
     for href, label in NAV:
         cur = ' aria-current="page"' if href == current else ""
-        if href == "services.html":
+        if False:
             items.append(f'<div class="nav-item has-mega"><a href="{href}"{cur} aria-haspopup="true">{label}{CHEV}</a>{mega_services()}</div>')
         elif href == "industries.html":
             items.append(f'<div class="nav-item has-mega"><a href="{href}"{cur} aria-haspopup="true">{label}{CHEV}</a>{mega_industries()}</div>')
@@ -380,8 +379,8 @@ FOOTER = f"""</main>
         <ul>
           <li><a href="about.html">About us</a></li>
           <li><a href="about.html#leadership">Our leadership</a></li>
-          <li><a href="industries.html">Industries</a></li>
-          <li><a href="contact.html#how">How it works</a></li>
+          <li><a href="services.html#who">Who we serve</a></li>
+          
         </ul>
       </div>
       <div>
@@ -614,7 +613,12 @@ def dock():
     return f'<nav class="dock" data-dock aria-label="Contact MFS" inert>{"".join(items)}</nav>'
 
 
+LINKMAP = [("industries.html", "services.html#who"), ("contact.html#how", "contact.html#assess")]
 def write(name, html):
+    if name == "industries.html":
+        return
+    html = re.sub(r'href="industries\.html(#[^"]*)?"', 'href="services.html#who"', html)
+    html = html.replace('href="contact.html#how"', 'href="contact.html#assess"')
     d = dock()
     if name == "contact.html":
         d = d.replace('<a class="dock-go" href="contact.html">Get a Proposal', '<a class="dock-go" href="#assess">Start Assessment')
@@ -953,20 +957,69 @@ def division_overview(slug):
   </div>
 </div>"""
 
+
+def four_division(slug, alt):
+    d = DIVISIONS[slug]
+    name_html = d["name"].replace("&", "&amp;")
+    items = "".join(f'<li><b>{t}</b><span>{x}</span></li>' for t, x in d["services"])
+    long, short = d["cta"]
+    ph = DIV_PHOTO[slug]
+    return f"""<section class="section{' section--mist' if alt else ''} fs-div div-{d['key']}" id="{slug}">
+  <div class="wrap fs-grid">
+    <div class="fs-copy">
+      <span class="fs-tag"><i></i>{name_html}</span>
+      <h2>{d['tagline']}</h2>
+      <p class="lead">{d['pitch']}</p>
+      <ul class="fs-list">{items}</ul>
+      <div class="btn-row">{btn('contact.html#' + slug, long, short)}<a class="fs-more" href="{d['file']}">More about {name_html} <span aria-hidden="true">&rarr;</span></a></div>
+    </div>
+    <figure class="fs-photo">{photo(ph[0], ph[1], pos=ph[3], sizes="(max-width: 960px) 100vw, 40vw")}</figure>
+  </div>
+</section>"""
+
+DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "", "50% 60%"),
+             "grounds": ("grounds-trim", "A groundskeeper in overalls trimming grass along a row of conifers", "", "78% 50%"),
+             "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
+             "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
+jump = "".join(f'<a href="#{s_}"><i class="div-{DIVISIONS[s_]["key"]}"></i>{DIVISIONS[s_]["name"].replace("&", "&amp;")}</a>' for s_ in ["cleaning", "grounds", "property", "support"]) + '<a href="#building"><i style="background:var(--c-build)"></i>Building &amp; Civil Works</a>'
+who = "".join(f'<li>{prop_icon(k)}<span><b>{n}</b>{t}</span></li>' for k, n, t in INDUSTRIES)
 services = head("Services | Moisapula Facilities Solutions",
-                "Cleaning & Hygiene, Grounds & Landscaping, Property Care & Building Works and Support Services for homes, estates and businesses in Gauteng.",
+                "Cleaning & Hygiene, Grounds & Landscaping, Property Care, Support Services and Building & Civil Works for homes, estates and businesses in Gauteng.",
                 "services.html") + header("services.html") + f"""
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Our services</span>
-    <h1>Multiple services. Reliable delivery.</h1>
-    <p class="lead">Four service divisions delivered by our own trained teams, plus specialist building and civil works through our partner, Ecotech Engineering. Once-off, scheduled and contract-based options are available for every service.</p>
-    <div class="btn-row">{btn('contact.html', 'Get a Tailored Proposal', 'Get Proposal')}{btn('industries.html', 'Find the Right Service', 'Find Service', 'btn-ghost')}</div>
+    <h1>Everything your property needs</h1>
+    <p class="lead">Four service divisions delivered by our own trained teams, plus building and civil works through our partner, Ecotech Engineering. Book once-off or on a schedule.</p>
+    <nav class="fs-jump" aria-label="Jump to a service">{jump}</nav>
   </div>
 </section>
-{services_explorer()}
+{four_division("cleaning", False)}
+{four_division("grounds", True)}
+{four_division("property", False)}
+{four_division("support", True)}
+<section class="section section--navy" id="building">
+  <div class="wrap two-col">
+    <div class="stack" style="gap:18px">
+      <span class="eyebrow">Delivered through Ecotech Engineering</span>
+      <h2>Building &amp; Civil Works</h2>
+      <p>Through our strategic partnership with Ecotech Engineering, we provide specialist building and civil works supported by qualified technical expertise and project delivery capabilities.</p>
+      <div class="btn-row">{btn('contact.html#property', 'Request Building Works Assessment', 'Request Assessment')}<a class="fs-more fs-more--light" href="property-care.html#building">More about Building &amp; Civil Works <span aria-hidden="true">&rarr;</span></a></div>
+    </div>
+    <div class="partner-card">
+      <div class="eco-head">{eco_logo(40)}<div><b>Ecotech Engineering Africa</b><span>MFS's building and civil works partner</span></div></div>
+      <ul class="checks cap-list" style="grid-template-columns:1fr 1fr">{''.join(f'<li>{CHECK.replace("currentColor", "#8A96A8")}<span>{b}</span></li>' for b in BUILD)}</ul>
+    </div>
+  </div>
+</section>
+<section class="section" id="who">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Who we serve</span><h2>Properties we look after</h2></div>
+    <ul class="fs-who">{who}</ul>
+  </div>
+</section>
 """ + closing_cta() + FOOTER
-write("services.html", services.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/services.js" defer></script>'))
+write("services.html", services)
 
 # =========================== DIVISION PAGES ===========================
 DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "", "50% 60%"),
@@ -1188,7 +1241,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
       <h1 id="ca-title"><span class="ln"><span>Let's talk</span></span> <span class="ln"><span>about your site</span></span></h1>
       <p class="lead">Every property is different. Tell us about your site and we'll start preparing a tailored facilities solution.</p>
       <ul class="hero-checks">{''.join(f"<li>{CHECK.replace('currentColor', '#D9A441')}<span>{t}</span></li>" for t in ["Free site assessment", "Tailored proposal", "No obligation"])}</ul>
-      <div class="btn-row">{btn('#assess', 'Start Your Assessment', 'Start Assessment', 'btn-sun', arrow=True)}{btn('#how', 'How It Works', 'How It Works', 'btn-ghost')}</div>
+      <div class="btn-row">{btn('#assess', 'Start Your Assessment', 'Start Assessment', 'btn-sun', arrow=True)}{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}</div>
     </div>
     <div class="ca-flow" aria-hidden="true">
       <svg viewBox="0 0 12 300" preserveAspectRatio="none"><line class="ca-flow-base" x1="6" y1="6" x2="6" y2="294"/><line class="ca-flow-run" x1="6" y1="6" x2="6" y2="294"/></svg>
@@ -1198,12 +1251,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
   </div>
 </section>
 
-<section class="ca-how" id="how" aria-labelledby="how-title">
-  <div class="how-track"><div class="how-sticky"><div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">How it works</span><h2 id="how-title">From first message to a better-run site</h2></div>
-    <ol class="how-steps"><span class="how-line" aria-hidden="true"><i></i></span>{how_html}</ol>
-  </div></div></div>
-</section>
+
 
 <section class="section section--mist ca-assess" id="assess">
   <div class="wrap">
@@ -1318,7 +1366,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
 write("contact.html", contact.replace('<a class="go" href="contact.html">Get Quote</a>', '<a class="go" href="#assess">Start Assessment</a>'))
 
 
-pages = ["index.html", "about.html", "services.html"] + [d["file"] for d in DIVISIONS.values()] + ["industries.html", "contact.html"]
+pages = ["index.html", "about.html", "services.html"] + [d["file"] for d in DIVISIONS.values()] + ["contact.html"]
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{SITE}/{'' if p == 'index.html' else p.replace('.html', '')}</loc></url>\n" for p in pages) + "</urlset>\n")
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
