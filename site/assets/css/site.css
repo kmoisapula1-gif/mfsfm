@@ -2078,6 +2078,33 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .closing-grid { align-items: center; }
 .closing-actions { align-self: center; }
 
+/* ===== Hero refinements (preview) ===== */
+@media (min-width: 961px) {
+  .hero--acm .hero-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); align-items: center; }
+  .hero--acm .hero-copy { max-width: 560px; gap: 20px; }
+  .hero--acm h1 { font-size: clamp(2.6rem, 4.2vw, 3.5rem); line-height: 1.04; }
+  /* Compact Client needs -> MFS -> Outcome unit */
+  .acm-stage { height: 420px; }
+}
+@media (max-width: 960px) { .br-d { display: none; } }
+.hero--acm .hero-cta { gap: 8px; }
+.hero--acm .cta-sub { font-size: .92rem; margin-left: 4px; }
+.hero-cred { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: 4px 0 0; font-size: .92rem; font-weight: 600; color: var(--ink); }
+.hero-cred span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-cred svg { width: 18px; height: 18px; fill: none; stroke: var(--navy); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hero-cred span + span { padding-left: 22px; border-left: 1px solid var(--line); }
+/* One visual system for the diagram: gold accent, thin line, one node style, charcoal labels, soft warm tint */
+.acm-stage::before { content: ""; position: absolute; left: 50%; top: 50%; width: 460px; height: 460px; margin: -230px 0 0 -230px; border-radius: 50%; background: radial-gradient(circle, rgba(221,166,59,.14) 0%, rgba(221,166,59,.06) 40%, rgba(221,166,59,0) 70%); pointer-events: none; }
+.acm-line { stroke: #DDA63B; stroke-width: 1.5; opacity: 1; }
+.acm-dot .outer { display: none; }
+.acm-dot .ring { width: 24px; height: 24px; border: 1.5px solid rgba(221,166,59,.55); }
+.acm-dot .core { width: 12px; height: 12px; background: #DDA63B; box-shadow: none; }
+.acm-label b { color: var(--ink); letter-spacing: .16em; }
+.acm-label span { color: #5A6066; }
+.acm-roles { margin-top: 0; }
+.acm-roles span { background: transparent; border-color: var(--line); color: #5A6066; }
+@media (max-width: 560px) { .hero-cred { flex-direction: column; align-items: flex-start; gap: 8px; } .hero-cred span + span { padding-left: 0; border-left: 0; } }
+
 /* Talk to us: plain contact section */
 .talk { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: clamp(28px, 4vw, 48px); border: 1px solid var(--line); border-radius: 24px; background: var(--stone); }
 .talk-main { display: flex; flex-direction: column; gap: 16px; }

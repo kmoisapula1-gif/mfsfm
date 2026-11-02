@@ -669,15 +669,15 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Facilities management without the hassle</span>
-      <h1>Connecting People, Properties and Performance.</h1>
+      <h1>Connecting People,<br class="br-d"> Properties and<br class="br-d"> Performance.</h1>
       <p class="lead">Professional cleaning, landscaping, maintenance, hygiene and specialist building works. We help homes, estates, offices, retail centres and industrial facilities stay clean, safe and operational through reliable service delivery.</p>
       <div class="hero-cta">
         <div class="btn-row">
           {btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}
           {btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}
         </div>
-        <p class="cta-sub">Receive a tailored facilities proposal within 5 working days.</p>
-        <ul class="hero-facts"><li><b>Since 2015</b> in business</li><li><b>Level 1</b> B-BBEE contributor</li></ul>
+        <p class="cta-sub">Tailored proposal within 5 working days</p>
+        <p class="hero-cred"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L19 6 L19 11 C19 15.5 16 19 12 21 C8 19 5 15.5 5 11 L5 6 Z"/><path d="M9 12 L11 14 L15 10"/></svg>Since 2015</span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L19 6 L19 11 C19 15.5 16 19 12 21 C8 19 5 15.5 5 11 L5 6 Z"/><path d="M9 12 L11 14 L15 10"/></svg>Level 1 B-BBEE Contributor</span></p>
       </div>
     </div>
     {connection_model()}
@@ -958,7 +958,7 @@ def four_division(slug, alt):
 </section>"""
 
 DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "", "50% 60%"),
-             "grounds": ("grounds-trim", "A groundskeeper in overalls trimming grass along a row of conifers", "", "78% 50%"),
+             "grounds": ("grounds-hedge", "A groundskeeper in gloves clearing cut branches from a hedge", "", "62% 35%"),
              "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
              "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
 jump = "".join(f'<a href="#{s_}"><i class="div-{DIVISIONS[s_]["key"]}"></i>{DIVISIONS[s_]["name"].replace("&", "&amp;")}</a>' for s_ in ["cleaning", "grounds", "property", "support"]) + '<a href="#building"><i style="background:var(--c-build)"></i>Building &amp; Civil Works</a>'
@@ -1003,7 +1003,7 @@ write("services.html", services)
 
 # =========================== DIVISION PAGES ===========================
 DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "", "50% 60%"),
-             "grounds": ("grounds-trim", "A groundskeeper in overalls trimming grass along a row of conifers", "", "78% 50%"),
+             "grounds": ("grounds-hedge", "A groundskeeper in gloves clearing cut branches from a hedge", "", "62% 35%"),
              "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
              "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
 for slug, d in DIVISIONS.items():
