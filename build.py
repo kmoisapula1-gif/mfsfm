@@ -196,7 +196,7 @@ STEPS = [("Site assessment", "We visit your site and identify operational requir
          ("Reporting and improvement", "Monthly reporting, inspections and service reviews.")]
 
 CHOOSE = [("Owner-managed", "Our CEO and Operations Manager are involved on every account."),
-          ("A wide range of services", "Cleaning, landscaping, maintenance, hygiene, support and building works."),
+          ("Established in 2015", "More than ten years looking after properties across Gauteng."),
           ("Monthly reporting", "Photos, inspection scores and open issues, every month."),
           ("Safety-driven", "Risk assessments, PPE and site procedures as standard."),
           ("Flexible contracts", "Once-off, scheduled or full service contracts."),
@@ -394,7 +394,7 @@ FOOTER = f"""</main>
       </div>
     </div>
     <div class="footer-base">
-      <span>&copy; 2026 Moisapula Facilities Solutions.</span>
+      <span>&copy; 2026 Moisapula Facilities Solutions · Est. 2015 · Level 1 B-BBEE contributor</span>
       <span class="footer-partner">Building &amp; civil works delivered through {eco_logo(22)}</span>
     </div>
   </div>
@@ -677,6 +677,7 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
           {btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}
         </div>
         <p class="cta-sub">Receive a tailored facilities proposal within 5 working days.</p>
+        <ul class="hero-facts"><li><b>Since 2015</b> in business</li><li><b>Level 1</b> B-BBEE contributor</li></ul>
       </div>
     </div>
     {connection_model()}
@@ -730,7 +731,7 @@ about = head("About Moisapula Facilities Solutions",
   <div class="wrap">
     <span class="eyebrow">About us</span>
     <h1>We connect people, properties and services</h1>
-    <p class="lead">Moisapula Facilities Solutions is a South African facilities management company providing professional cleaning, landscaping, hygiene, property care and support services to residential estates, private homes, commercial properties, retail centres, industrial facilities and public sector clients.</p>
+    <p class="lead">Moisapula Facilities Solutions is a South African facilities management company, in business since 2015 and a Level 1 B-BBEE contributor, providing professional cleaning, landscaping, hygiene, property care and support services to residential estates, private homes, commercial properties, retail centres, industrial facilities and public sector clients.</p>
     <div class="btn-row">{btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}</div>
   </div>
 </section>
@@ -741,7 +742,7 @@ about = head("About Moisapula Facilities Solutions",
       <span class="bar"></span><span class="eyebrow">Our story</span>
       <h2>The spaces we depend on matter</h2>
       <p>People spend a significant part of their lives in offices, residential communities, schools, shopping centres, industrial facilities and public spaces. These environments shape safety, productivity, wellbeing and first impressions. Yet the services that keep them functioning often work behind the scenes: the landscaping that enhances a property's image, the cleaning that creates a healthier environment, the maintenance that prevents costly breakdowns, and the support services that keep operations running smoothly.</p>
-      <p>Moisapula Facilities Solutions was established to provide these essential services with care and professionalism. We believe clients deserve more than contractors. They deserve a team that understands their environment, protects their assets and takes ownership of the outcome.</p>
+      <p>Since 2015, Moisapula Facilities Solutions has provided these essential services with care and professionalism. We believe clients deserve more than contractors. They deserve a team that understands their environment, protects their assets and takes ownership of the outcome.</p>
       <p>Through our trained teams and our strategic partnership with Ecotech Engineering for building and civil works, we connect expertise, resources and people to help properties operate at their best.</p>
       <p style="font-weight:900;color:var(--navy);font-size:1.2rem">Because when spaces perform better, people perform better.</p>
     </div>
@@ -790,7 +791,7 @@ about = head("About Moisapula Facilities Solutions",
       <div class="chips">{''.join(f'<span class="chip">{t}</span>' for t in ["Professional conduct", "Skills development", "Fair labour practices", "Respect and accountability", "Consistent service standards", "A culture of safety and teamwork"])}</div>
       <p>By investing in our people, we create better outcomes for our clients.</p>
       <span class="bar" style="margin-top:20px"></span><span class="eyebrow">Compliance</span>
-      <div class="chips">{''.join(f'<span class="chip">{t}</span>' for t in ["CIPC registration", "SARS tax compliance", "UIF registration", "COIDA registration", "Public liability insurance", "Health and safety compliance"])}</div>
+      <div class="chips">{''.join(f'<span class="chip">{t}</span>' for t in ["Level 1 B-BBEE contributor", "CIPC registration", "SARS tax compliance", "UIF registration", "COIDA registration", "Public liability insurance", "Health and safety compliance"])}</div>
       <p>Supporting documentation is available on request.</p>
     </div>
   </div>

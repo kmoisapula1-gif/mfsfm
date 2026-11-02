@@ -2039,3 +2039,6 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .closing-note { color: var(--sky); }
 
 .site-footer { background: var(--navy-deep) !important; }
+.hero-facts { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-facts li { display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 14px; border-radius: 999px; background: var(--stone); border: 1px solid var(--line); font-size: .9rem; color: #5A6066; }
+.hero-facts b { color: var(--navy); font-weight: 800; }
