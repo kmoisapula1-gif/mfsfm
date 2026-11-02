@@ -2073,3 +2073,5 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 .fs-more { display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 6px; font-weight: 700; color: var(--navy); text-decoration: none; }
 .fs-more:hover { text-decoration: underline; text-underline-offset: 4px; }
 .fs-more--light { color: #FFFFFF; }
+.leader-strip { grid-template-columns: auto 1fr; }
+@media (max-width: 760px) { .leader-strip { grid-template-columns: 1fr; } }

@@ -194,7 +194,7 @@ STEPS = [("Site assessment", "We visit your site and identify operational requir
          ("Accountable delivery", "Dedicated teams, supervision and quality controls."),
          ("Reporting and improvement", "Monthly reporting, inspections and service reviews.")]
 
-CHOOSE = [("Owner-managed", "Our CEO and Operations Manager are involved on every account."),
+CHOOSE = [("Owner-managed", "Our Managing Director is involved on every account."),
           ("Established in 2015", "More than ten years looking after properties across Gauteng."),
           ("Monthly reporting", "Photos, inspection scores and open issues, every month."),
           ("Safety-driven", "Risk assessments, PPE and site procedures as standard."),
@@ -378,7 +378,7 @@ FOOTER = f"""</main>
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">About us</a></li>
-          <li><a href="about.html#leadership">Our leadership</a></li>
+          <li><a href="about.html#leadership">Managing Director</a></li>
           <li><a href="services.html#who">Who we serve</a></li>
           
         </ul>
@@ -718,9 +718,8 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
     <div class="section-head"><span class="bar"></span><span class="eyebrow">Why choose MFS</span><h2>Why property managers choose MFS</h2></div>
     {choose_html()}
     <div class="founder-strip leader-strip">
-      <div class="leader-mini"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="72" height="72" loading="lazy"><p><b>Toy Moisapula</b><span>CEO</span></p></div>
-      <div class="leader-mini"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="72" height="72" loading="lazy"><p><b>Kamogelo Moisapula</b><span>Operations Manager</span></p></div>
-      {btn('about.html#leadership', 'Our Leadership', 'Our Leadership', arrow=True)}
+      <div class="leader-mini"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="72" height="72" loading="lazy"><p><b>Kamogelo Moisapula</b><span>Managing Director</span></p></div>
+      {btn('about.html#leadership', 'About Us', 'About Us', arrow=True)}
     </div>
   </div>
 </section>
@@ -767,10 +766,9 @@ about = head("About Moisapula Facilities Solutions",
 
 <section class="section" id="leadership">
   <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Our leadership</span><h2>The people behind MFS</h2></div>
+    <div class="section-head"><span class="bar"></span><span class="eyebrow">Leadership</span><h2>Meet our Managing Director</h2></div>
     <div class="leaders">
-      <figure class="leader"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="400" height="500" loading="lazy"><figcaption><b>Toy Moisapula</b><span>Chief Executive Officer</span></figcaption></figure>
-      <figure class="leader"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="400" height="500" loading="lazy"><figcaption><b>Kamogelo Moisapula</b><span>Operations Manager</span></figcaption></figure>
+      <figure class="leader"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="400" height="500" loading="lazy"><figcaption><b>Kamogelo Moisapula</b><span>Managing Director</span></figcaption></figure>
     </div>
     <div class="btn-row" style="margin-top:28px">{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-navy')}</div>
   </div>
@@ -1225,7 +1223,7 @@ if PHONE_TEL:
     dir_rows += f'<div class="dir-row"><b>Phone</b><span>{PHONE_DISPLAY}</span></div>'
 dir_rows += '<div class="dir-row"><b>Service area</b><span>Johannesburg, Ekurhuleni and Tshwane, plus the West Rand and Sedibeng on request.</span></div>'
 dir_feats = "".join(f'<li>{CHECK}<span><b>{t}</b>{d}</span></li>' for t, d in [
-    ("Direct access", "You deal with our management from the first message."),
+    ("Direct access", "You deal with the Managing Director from the first message."),
     ("Fast response", "Every request is reviewed within one working day."),
     ("Site-specific advice", "Recommendations based on a visit to your property."),
     ("No call centre", "No ticket numbers and no hand-offs.")])
@@ -1255,7 +1253,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
 
 <section class="section section--mist ca-assess" id="assess">
   <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Your site assessment</span><h2>Tell us about your site</h2><p class="lead">Your answers build your assessment as you go. Our management team reviews every request personally.</p></div>
+    <div class="section-head"><span class="bar"></span><span class="eyebrow">Your site assessment</span><h2>Tell us about your site</h2><p class="lead">Your answers build your assessment as you go. Our Managing Director reviews every request personally.</p></div>
     <div class="form-wrap">
     <form class="quote-form" id="quote-form" novalidate>
       <div class="progress" aria-hidden="true">
@@ -1338,7 +1336,7 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
       </div>
       <div class="cap-vis" aria-hidden="true"><canvas class="cap-canvas"></canvas><div class="cap-arts">{cap_arts}<span class="cap-empty">Select a property to see it here</span></div></div>
       <dl class="cap-rows">{cap_rows}</dl>
-      <p class="cap-note">Our management team reviews every request within one working day.</p>
+      <p class="cap-note">Our Managing Director reviews every request within one working day.</p>
     </aside>
     </div>
   </div>
@@ -1348,13 +1346,13 @@ contact = head("Request a Site Assessment | Moisapula Facilities Solutions",
   <div class="wrap">
     <div class="dir-card">
       <div class="dir-photo">
-        <div class="dir-duo"><img src="assets/img/toy-moisapula.jpg" alt="Toy Moisapula, CEO" width="300" height="375" loading="lazy"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Operations Manager" width="300" height="375" loading="lazy"></div>
+        <img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="300" height="375" loading="lazy">
         <span class="dir-badge"><i aria-hidden="true"></i>Owner managed</span>
       </div>
       <div class="dir-body">
         <span class="eyebrow">Talk to us</span>
         <h2>Owner-managed. Real accountability.</h2>
-        <p class="dir-lead">Your enquiry goes straight to our management team, Toy Moisapula (CEO) and Kamogelo Moisapula (Operations Manager), not a call centre.</p>
+        <p class="dir-lead">Your enquiry goes straight to Kamogelo Moisapula, Managing Director, not a call centre.</p>
         <ul class="dir-feats">{dir_feats}</ul>
         <div class="dir-rows">{dir_rows}</div>
         <div class="btn-row">{''.join(dir_actions)}</div>
