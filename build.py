@@ -610,7 +610,15 @@ def dock():
 
 
 LINKMAP = [("industries.html", "services.html#who"), ("contact.html#how", "contact.html#assess")]
+import hashlib as _hl
+def _ver(path):
+    try: return _hl.md5((OUT / path).read_bytes()).hexdigest()[:8]
+    except FileNotFoundError: return "0"
+def _bust(html):
+    # Add a content hash to CSS/JS links so browsers fetch fresh files after every update
+    return re.sub(r'(assets/(?:css|js)/[A-Za-z0-9_.-]+\.(?:css|js))"', lambda m: f'{m.group(1)}?v={_ver(m.group(1))}"', html)
 def write(name, html):
+    html = _bust(html)
     if name == "industries.html":
         return
     html = re.sub(r'href="industries\.html(#[^"]*)?"', 'href="services.html#who"', html)

@@ -207,11 +207,13 @@ const CONTACT_EMAIL = "info@mfscentral.co.za";
     const mark = window.innerHeight * 0.6;              // the line fills up to 60% down the screen
     timelines.forEach(function (tl) {
       const rail = tl.querySelector(".tl-rail");
+      if (!rail) return;                               // [data-tl] blocks without a rail (About page) only opt out of reveals
       const r = rail.getBoundingClientRect();
       const p = Math.max(0, Math.min(1, (mark - r.top) / r.height));
       tl.style.setProperty("--tl", p.toFixed(4));
       tl.querySelectorAll(".tl-step").forEach(function (s) {
-        const node = s.querySelector(".tl-node").getBoundingClientRect();
+        const n = s.querySelector(".tl-node"); if (!n) return;
+        const node = n.getBoundingClientRect();
         s.classList.toggle("is-on", node.top + node.height / 2 <= mark);
       });
     });
