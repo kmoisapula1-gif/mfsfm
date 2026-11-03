@@ -347,7 +347,7 @@ def closing_cta():
       <ul class="closing-checks">{checks}</ul>
     </div>
     <div class="closing-actions">
-      {btn('contact.html', 'Request a Proposal', 'Get Quote')}
+      {btn('contact.html', 'Request a Proposal', 'Get Quote', arrow=True)}
     </div>
   </div>
 </section>
@@ -709,78 +709,151 @@ home = head("Moisapula Facilities Solutions | Facilities Management in Gauteng",
 write("index.html", home)
 
 # =========================== ABOUT ===========================
+import re as _re
+_mark = open(OUT / "assets/img/mark.svg").read()
+_paths = _re.findall(r'<path d="([^"]+)"', _mark)
+MARK_LETTERS, MARK_BAR = _paths[0], _paths[1]
+
+def ab_num(n, label):
+    return f'<p class="ab-num"><span>{n}</span><i aria-hidden="true"></i>{label}</p>'
+
+AB_TIMELINE = [
+    ("2015", "Founded", "Moisapula Facilities Solutions is registered in Gauteng."),
+    ("Growth", "More services", "Cleaning, grounds, property care and support services, delivered by our own teams."),
+    ("Partnership", "Ecotech Engineering", "Building and civil works delivered with our strategic partner."),
+    ("Today", "Level 1 B-BBEE", "Serving homes, estates and businesses across Gauteng."),
+]
+AB_PEOPLE = [
+    ("Professional conduct", "How our teams represent you on site."),
+    ("Skills development", "Building stronger capability within our teams."),
+    ("Fair labour practices", "Fair, lawful treatment of everyone we employ."),
+    ("Respect &amp; accountability", "Taking responsibility for the spaces entrusted to us."),
+    ("Consistent standards", "The same quality on every visit."),
+    ("Safety &amp; teamwork", "Working safely, together, on every job."),
+]
+AB_SAFETY = ["Risk identification and mitigation", "PPE compliance", "Site-specific safety procedures",
+             "Incident reporting and corrective action", "Environmental responsibility",
+             "Responsible waste management", "Ongoing awareness and training"]
+AB_CREDS = [("Level 1", "B-BBEE contributor"), ("CIPC", "Registered company"), ("SARS", "Tax compliant"),
+            ("UIF", "Registered"), ("COIDA", "Registered"), ("H&amp;S", "Health and safety compliant"),
+            ("Insurance", "Public liability cover")]
+AB_CHECK = '<svg class="ab-check" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5 L10.5 15.5 L16.5 9"/></svg>'
+
 about = head("About Moisapula Facilities Solutions",
-             "Moisapula Facilities Solutions connects people, properties and services. Our story, our leadership and our commitments.",
+             "Since 2015, Moisapula Facilities Solutions has looked after homes, estates and businesses across Gauteng. Our story, our leadership and our standards.",
              "about.html") + header("about.html") + f"""
-<section class="page-hero">
+<section class="ab-hero">
+  <div class="wrap ab-hero-grid">
+    <div class="ab-hero-copy">
+      <span class="eyebrow">About MFS</span>
+      <h1>The spaces we depend on matter.</h1>
+      <p class="lead">Every property is an ecosystem of people, assets, services and spaces. Since 2015, MFS has brought them together through professional facilities management.</p>
+      <a class="ab-down" href="#story">Explore our story <span aria-hidden="true">&darr;</span></a>
+    </div>
+    <div class="ab-hero-visual" aria-hidden="true">
+      <canvas class="ab-canvas"></canvas>
+      <div class="ab-hero-fallback">{prop_icon("estate")}{prop_icon("office")}{prop_icon("industrial")}{prop_icon("retail")}</div>
+    </div>
+  </div>
+</section>
+
+<section class="section ab-story" id="story">
+  <div class="wrap ab-story-grid">
+    <div class="ab-story-copy">
+      {ab_num("01", "Our story")}
+      <h2>Behind every successful property is a team that keeps it working.</h2>
+      <p>Offices, estates, schools, shopping centres and homes shape how people live and work. The services that keep them clean, safe and well maintained often work behind the scenes.</p>
+      <p>Since 2015, Moisapula Facilities Solutions has provided those services with care and professionalism, through our own trained teams and, for building and civil works, our partner Ecotech Engineering.</p>
+    </div>
+    <ol class="ab-timeline" data-tl>
+      {''.join(f'<li><span class="ab-tl-when">{w}</span><b>{t}</b><span class="ab-tl-what">{d}</span></li>' for w, t, d in AB_TIMELINE)}
+    </ol>
+  </div>
+</section>
+
+<section class="section ab-idea">
   <div class="wrap">
-    <span class="eyebrow">About us</span>
-    <h1>We connect people, properties and services</h1>
-    <p class="lead">Moisapula Facilities Solutions is a South African facilities management company, in business since 2015 and a Level 1 B-BBEE contributor, providing professional cleaning, landscaping, hygiene, property care and support services to residential estates, private homes, commercial properties, retail centres, industrial facilities and public sector clients.</p>
-    <div class="btn-row">{btn('contact.html', 'Request a Free Site Assessment', 'Free Assessment')}{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-ghost')}</div>
+    <div class="ab-idea-head">
+      {ab_num("02", "The idea behind MFS")}
+      <h2>Connecting people, properties &amp; performance.</h2>
+    </div>
+    <figure class="ab-logo" data-tl aria-label="The MFS logo: a client dot and an outcome dot joined by a bar that runs through the letters M, F and S">
+      <svg viewBox="3.06 42.48 528.51 150.08" aria-hidden="true">
+        <defs><clipPath id="ab-bar-clip"><rect class="ab-bar-reveal" x="0" y="40" width="540" height="160"/></clipPath></defs>
+        <path class="ab-letters" d="{MARK_LETTERS}" fill="#114B36"/>
+        <path class="ab-bar" d="{MARK_BAR}" fill="#114B36" clip-path="url(#ab-bar-clip)"/>
+        <circle class="ab-dot ab-dot-1" cx="34.58" cy="114" r="17" fill="#D9A441"/>
+        <circle class="ab-dot ab-dot-2" cx="500.05" cy="114" r="17" fill="#D9A441"/>
+      </svg>
+      <figcaption class="ab-logo-labels"><span class="l1">Client</span><span class="l2">Outcome</span></figcaption>
+    </figure>
+    <p class="ab-idea-words"><span>Partnership.</span> <span>Coordination.</span> <span>Accountability.</span></p>
+    <p class="ab-idea-text">The two gold points of our logo are the client and the outcome they need. The bar that joins them runs through M, F and S: Moisapula Facilities Solutions is the connection between the two.</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap two-col">
-    <div class="prose">
-      <span class="bar"></span><span class="eyebrow">Our story</span>
-      <h2>The spaces we depend on matter</h2>
-      <p>People spend a significant part of their lives in offices, residential communities, schools, shopping centres, industrial facilities and public spaces. These environments shape safety, productivity, wellbeing and first impressions. Yet the services that keep them functioning often work behind the scenes: the landscaping that enhances a property's image, the cleaning that creates a healthier environment, the maintenance that prevents costly breakdowns, and the support services that keep operations running smoothly.</p>
-      <p>Since 2015, Moisapula Facilities Solutions has provided these essential services with care and professionalism. We believe clients deserve more than contractors. They deserve a team that understands their environment, protects their assets and takes ownership of the outcome.</p>
-      <p>Through our trained teams and our strategic partnership with Ecotech Engineering for building and civil works, we connect expertise, resources and people to help properties operate at their best.</p>
-      <p style="font-weight:900;color:var(--navy);font-size:1.2rem">Because when spaces perform better, people perform better.</p>
-    </div>
-    <div class="stack" style="gap:20px">
-      <div class="card"><h3>The meaning behind our logo</h3><p>The two points at either end of our logo represent the client on one side and the desired outcome on the other. The bar that joins them runs through M, F and S: Moisapula Facilities Solutions is the connection between the two. It symbolises partnership, coordination and accountability, because nothing operates in isolation.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--mist">
+<section class="section section--mist ab-vm">
   <div class="wrap">
-    <div class="vm">
-      <div class="card"><span class="label">OUR VISION</span><p>To become South Africa's most trusted facilities management partner, recognised for connecting quality service, accountability and sustainable outcomes.</p></div>
-      <div class="card"><span class="label">OUR MISSION</span><p>To deliver facilities services that protect assets, support operations and create clean, safe and productive environments through professional service and trusted partnerships.</p></div>
+    {ab_num("03", "Where we're going")}
+    <div class="ab-vm-grid">
+      <article class="ab-vm-card"><svg class="ab-vm-art ab-vm-art--vision" viewBox="0 0 400 260" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><g class="hz"><circle cx="330" cy="250" r="60"/><circle cx="330" cy="250" r="100"/><circle cx="330" cy="250" r="140"/><circle cx="330" cy="250" r="180"/></g><path class="track" d="M40 230 L330 230"/><circle class="goal" cx="330" cy="230" r="7"/><circle class="mover" cx="40" cy="230" r="5"/></svg><span class="eyebrow">Our vision</span><p>To become South Africa's most trusted facilities management partner, recognised for connecting quality service, accountability and sustainable outcomes.</p></article>
+      <article class="ab-vm-card ab-vm-card--green"><svg class="ab-vm-art ab-vm-art--mission" viewBox="0 0 400 260" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><g class="links"><path id="abm1" d="M200 200 L300 120"/><path id="abm2" d="M300 120 L370 190"/><path id="abm3" d="M300 120 L360 50"/><path d="M200 200 L370 190"/></g><g class="nodes"><circle cx="200" cy="200" r="6"/><circle class="hub" cx="300" cy="120" r="9"/><circle cx="370" cy="190" r="6"/><circle cx="360" cy="50" r="6"/></g><circle class="pulse" r="4"><animateMotion dur="5s" repeatCount="indefinite" path="M200 200 L300 120 L370 190 L300 120 L360 50 L300 120 Z"/></circle></svg><span class="eyebrow">Our mission</span><p>To deliver facilities services that protect assets, support operations and create clean, safe and productive environments through professional service and trusted partnerships.</p></article>
     </div>
   </div>
 </section>
 
-<section class="section" id="leadership">
+<section class="section ab-lead" id="leadership">
+  <div class="wrap ab-lead-grid">
+    <figure class="ab-lead-photo"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="800" height="950" loading="lazy"></figure>
+    <div class="ab-lead-copy">
+      {ab_num("04", "Leadership")}
+      <h2>Leadership with accountability at its core.</h2>
+      <p class="lead">At MFS, leadership means staying close to the work. Our Managing Director is involved on every account, from the first site visit to the monthly report, so decisions are made quickly and problems are owned until they are resolved.</p>
+      <div class="ab-lead-name"><b>Kamogelo Moisapula</b><span>Managing Director</span></div>
+      <a class="ab-link" href="contact.html">Talk to us <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--mist ab-people">
   <div class="wrap">
-    <div class="section-head"><span class="bar"></span><span class="eyebrow">Leadership</span><h2>Meet our Managing Director</h2></div>
-    <div class="leaders">
-      <figure class="leader"><img src="assets/img/kamogelo-moisapula.jpg" alt="Kamogelo Moisapula, Managing Director" width="400" height="500" loading="lazy"><figcaption><b>Kamogelo Moisapula</b><span>Managing Director</span></figcaption></figure>
+    <div class="ab-people-head">
+      {ab_num("05", "People &amp; culture")}
+      <h2>Our success is built on our people.</h2>
     </div>
-    <div class="btn-row" style="margin-top:28px">{btn(director_href(), 'Talk to Us', 'Talk to Us', 'btn-navy')}</div>
+    <ol class="ab-values">
+      {''.join(f'<li><span class="ab-v-n">{i:02d}</span><b>{t}</b><span>{d}</span></li>' for i, (t, d) in enumerate(AB_PEOPLE, 1))}
+    </ol>
   </div>
 </section>
 
-<section class="photo-strip" aria-label="Our work">
-  {photo("team-walk", "A uniformed team carrying cleaning equipment to a client's building", sizes="(max-width: 760px) 100vw, 50vw", pos="62% 50%")}
-  {photo("grounds-rake", "A groundskeeper raking leaves on a lawn", sizes="(max-width: 760px) 100vw, 25vw", pos="55% 50%")}
-  {photo("equipment-van", "A service vehicle loaded with cleaning machines, buckets and ladders", sizes="(max-width: 760px) 100vw, 25vw", pos="50% 60%")}
-</section>
-
-<section class="section">
-  <div class="wrap two-col">
-    <div class="stack">
-      <span class="bar"></span><span class="eyebrow">Health, safety &amp; environment</span>
-      <h2>Safe operations and environmental responsibility go hand in hand</h2>
-      <ul class="checks" style="grid-template-columns:1fr">{''.join(f'<li>{CHECK.replace("currentColor", "#4C9A52")}<span>{t}</span></li>' for t in ["Risk identification and mitigation", "PPE compliance", "Site-specific safety procedures", "Incident reporting and corrective action", "Environmental responsibility", "Responsible waste management", "Ongoing staff awareness and training"])}</ul>
+<section class="section ab-safety">
+  <div class="wrap ab-safety-grid">
+    <div class="ab-safety-head">
+      {ab_num("06", "Health, safety &amp; environment")}
+      <h2>Safety isn't a checkbox. It's how we operate.</h2>
+      <p>Every site has a risk assessment, the right protective equipment and a clear procedure before work starts.</p>
     </div>
-    <div class="stack">
-      <span class="bar"></span><span class="eyebrow">People &amp; culture</span>
-      <h2>Our success is built on our people</h2>
-      <div class="chips">{''.join(f'<span class="chip">{t}</span>' for t in ["Professional conduct", "Skills development", "Fair labour practices", "Respect and accountability", "Consistent service standards", "A culture of safety and teamwork"])}</div>
-      <p>By investing in our people, we create better outcomes for our clients.</p>
-      <span class="bar" style="margin-top:20px"></span><span class="eyebrow">Compliance</span>
-      <div class="chips">{''.join(f'<span class="chip">{t}</span>' for t in ["Level 1 B-BBEE contributor", "CIPC registration", "SARS tax compliance", "UIF registration", "COIDA registration", "Public liability insurance", "Health and safety compliance"])}</div>
-      <p>Supporting documentation is available on request.</p>
-    </div>
+    <ol class="ab-steps" data-tl>
+      <span class="ab-steps-line" aria-hidden="true"><i></i></span>
+      {''.join(f'<li>{AB_CHECK}<span>{t}</span></li>' for t in AB_SAFETY)}
+    </ol>
   </div>
 </section>
-""" + closing_cta() + FOOTER
+
+<section class="section section--mist ab-proof">
+  <div class="wrap">
+    <div class="ab-proof-head">
+      {ab_num("07", "Governance &amp; compliance")}
+      <h2>Built on professional standards.</h2>
+    </div>
+    <ul class="ab-creds">
+      {''.join(f'<li><b>{a}</b><span>{b}</span></li>' for a, b in AB_CREDS)}
+    </ul>
+    <a class="ab-link" href="contact.html">Supporting documentation available on request <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+""" + closing_cta() + FOOTER.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/about.js" defer></script>')
 write("about.html", about)
 
 
