@@ -1121,6 +1121,7 @@ DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and m
              "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
              "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
 for slug, d in DIVISIONS.items():
+    if slug == "cleaning": continue
     name_html = d["name"].replace("&", "&amp;")
     svc_cards = "".join(f'<div class="card svc div-{d["key"]}"><h3>{s}</h3><p>{t}</p></div>' for s, t in d["services"])
     safety = "".join(f'<li>{CHECK_DIV}<span>{t}</span></li>' for t in d["safety"])
@@ -1183,6 +1184,171 @@ for slug, d in DIVISIONS.items():
 </section>
 """ + closing_cta() + FOOTER
     write(d["file"], page)
+
+# =========================== CLEANING & HYGIENE (dedicated page) ===========================
+def cl_icon(k):
+    return (f'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{CL_ICON[k]}</svg>')
+
+CL_ICON = {
+    "office": '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/>',
+    "estate": '<path d="M3 21h18M5 21V10l5-4 5 4v11M15 21v-7l3-2 3 2v7"/><path d="M8.5 21v-4h3v4"/>',
+    "home": '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+    "deep": '<path d="M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z"/><path d="M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+    "wash": '<path d="M12 3c3 4 6 7.2 6 11a6 6 0 0 1-12 0c0-3.8 3-7 6-11z"/><path d="M9.5 14.5A2.5 2.5 0 0 0 12 17"/>',
+    "supply": '<rect x="6" y="3" width="12" height="11" rx="2"/><path d="M9 7h6"/><path d="M10 14v3.5a2 2 0 0 0 4 0V14"/><path d="M12 21.5v-.5"/>',
+    "window": '<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16"/><path d="M7 8.5l2.5-2.5"/>',
+    "high": '<path d="M7 21L9.5 3M17 21L14.5 3"/><path d="M9.2 6.5h5.6M8.7 10.5h6.6M8.1 14.5h7.8M7.6 18.5h8.8"/>',
+    "build": '<path d="M5 16a7 7 0 0 1 14 0"/><path d="M10 9.3V6h4v3.3"/><path d="M3 16h18v2.5H3z"/>',
+    "pressure": '<path d="M3 9h6l2 2h3"/><path d="M3 9v5h5v-3"/><path d="M15 11l5.5-3.5M15 11h6M15 11l5.5 3.5"/>',
+}
+CL_KEYS = ["office", "estate", "home", "deep", "wash", "supply", "window", "high", "build", "pressure"]
+CL_ARROW = '<span class="cl-go" aria-hidden="true">&rarr;</span>'
+
+CL_INCLUDED = [
+    ("work", "Workspaces", "General office cleaning, deep cleaning, window and high-level cleaning",
+     ["Workspaces", "Kitchens", "Boardrooms", "Carpets and hard floors", "Interior glazing", "Ceilings, light fittings and high surfaces"]),
+    ("wash", "Washrooms", "Hygiene and washroom services, consumable supply management",
+     ["Sanitiser", "Hygiene units", "Sanitary bin servicing", "Toilet paper", "Hand towels", "Soap, monitored and replenished"]),
+    ("common", "Common areas", "Estate and common area cleaning",
+     ["Entrances", "Clubhouses", "Walkways", "Shared facilities"]),
+    ("external", "External areas", "Pressure washing, window and glass cleaning",
+     ["Paving", "Walls", "Parking areas", "Bin areas", "Exterior glazing", "Shopfronts"]),
+]
+CL_STANDARDS = [
+    ("Colour coding", "Colour-coded cloths and mops to prevent cross-contamination."),
+    ("Product controls", "Safety data sheets for every chemical on site."),
+    ("Safe access", "Safe work-at-height methods for high-level cleaning."),
+    ("Quality checks", "Supervisor inspections against an agreed checklist."),
+]
+CL_ENV = [  # (industry key, label, services that usually apply: indexes into the cleaning services list)
+    ("office", "Commercial offices", [0, 4, 5, 6, 3, 7]),
+    ("estate", "Residential estates", [1, 9, 6, 3]),
+    ("home", "Residential homes", [2, 3, 6, 8, 9]),
+    ("retail", "Retail centres", [4, 5, 6, 9, 7]),
+    ("education", "Schools", [4, 5, 3, 6, 9]),
+    ("industrial", "Industrial facilities", [4, 7, 3, 9, 5]),
+    ("government", "Public sector", [0, 4, 5, 6, 3]),
+]
+CL_FAQ = [
+    ("Do you offer once-off cleaning?",
+     "Yes. We offer daily, scheduled and once-off cleaning, including spring cleans, move-in or move-out cleans and periodic deep cleans."),
+    ("Do you provide cleaning consumables?",
+     "Yes. Consumable supply management is part of our cleaning service: toilet paper, hand towels and soap are monitored and replenished."),
+    ("Do you service residential estates?",
+     "Yes. We clean estate entrances, clubhouses, walkways and shared facilities, and can pressure wash paving, walls, parking areas and bin areas."),
+    ("Do you provide post-construction cleaning?",
+     "Yes. Our builders' cleans get new or renovated spaces ready for handover."),
+    ("How do you manage cleaning chemicals on site?",
+     "We keep safety data sheets for every chemical on site, and use colour-coded cloths and mops to prevent cross-contamination. Supervisors inspect the work against an agreed checklist."),
+    ("How do I request a site assessment?",
+     "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit."),
+]
+
+def _cl():
+    d = DIVISIONS["cleaning"]
+    svcs = d["services"]
+    cards = "".join(
+        f'<li class="cl-card"><span class="cl-ic">{cl_icon(CL_KEYS[i])}</span><h3>{t}</h3><p>{x}</p>{CL_ARROW}</li>'
+        for i, (t, x) in enumerate(svcs))
+    tabs = "".join(
+        f'<button class="cl-tab" type="button" role="tab" id="clt-{k}" aria-controls="clp-{k}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{n}</button>'
+        for i, (k, n, _u, _l) in enumerate(CL_INCLUDED))
+    panels = "".join(
+        f'<div class="cl-panel" role="tabpanel" id="clp-{k}" aria-labelledby="clt-{k}"{"" if i == 0 else " hidden"}>'
+        f'<ul class="cl-checks">{"".join(f"<li>{CHECK}<span>{x}</span></li>" for x in items)}</ul>'
+        f'<p class="cl-under">Part of: {u}</p></div>'
+        for i, (k, n, u, items) in enumerate(CL_INCLUDED))
+    stds = "".join(f'<li><span class="cl-std-n">0{i}</span><b>{t}</b><span>{x}</span></li>' for i, (t, x) in enumerate(CL_STANDARDS, 1))
+    env_desc = {k: t for k, _n, t in INDUSTRIES}
+    env_btns = "".join(
+        f'<button class="cl-env-b" type="button" role="tab" id="cle-{k}" aria-controls="clep-{k}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{prop_icon(k)}<span>{n}</span></button>'
+        for i, (k, n, _s) in enumerate(CL_ENV))
+    env_panels = "".join(
+        f'<div class="cl-env-p" role="tabpanel" id="clep-{k}" aria-labelledby="cle-{k}"{"" if i == 0 else " hidden"}>'
+        f'<div class="cl-env-art" aria-hidden="true">{prop_icon(k)}</div>'
+        f'<div class="cl-env-body"><span class="cl-label">Cleaning for</span><h3>{n}</h3><p>{env_desc.get(k, "")}</p>'
+        f'<p class="cl-label">Services that usually apply</p><ul class="cl-env-s">{"".join(f"<li>{cl_icon(CL_KEYS[j])}<span>{svcs[j][0]}</span></li>" for j in idx)}</ul>'
+        f'<a class="cl-link" href="contact.html#cleaning,{k}">Request a cleaning proposal for this property <span aria-hidden="true">&rarr;</span></a></div></div>'
+        for i, (k, n, idx) in enumerate(CL_ENV))
+    faq = "".join(f'<details class="cl-faq-i"><summary><span>{q}</span><i aria-hidden="true"></i></summary><div class="cl-faq-a"><p>{a}</p></div></details>' for q, a in CL_FAQ)
+    closing = closing_cta().replace(
+        'href="contact.html"><span class="lbl-lg">Request a Proposal', 'href="contact.html#cleaning"><span class="lbl-lg">Request a Cleaning Proposal')
+    return head("Cleaning & Hygiene | Moisapula Facilities Solutions", d["pitch"], d["file"]) + header("services.html") + f"""
+<section class="cl-hero">
+  <div class="wrap cl-hero-grid">
+    <div class="cl-hero-copy">
+      <span class="crumbs cl-crumbs"><a href="services.html">Services</a> / Cleaning &amp; Hygiene</span>
+      <p class="cl-cat"><span class="cl-cat-i">{cl_icon("wash")}</span>Cleaning &amp; Hygiene</p>
+      <h1><span>Clean spaces.</span> <span>Healthier environments.</span></h1>
+      <p class="lead">Professional cleaning and hygiene solutions for workplaces, estates, homes and public areas, delivered by trained, uniformed teams with the right equipment and consumables.</p>
+      <div class="cl-hero-cta">{btn('contact.html#cleaning', 'Request a Cleaning Proposal', 'Get Cleaning Quote', arrow=True)}<a class="cl-link" href="{director_href()}">Talk to our team <span aria-hidden="true">&rarr;</span></a></div>
+    </div>
+    <figure class="cl-hero-photo"><span class="cl-mask" aria-hidden="true"></span>{photo("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", pos="50% 60%", sizes="(max-width: 960px) 100vw, 50vw", eager=True)}</figure>
+  </div>
+</section>
+
+<section class="section cl-services" id="services">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow cl-eyebrow">What we do</span><h2>Cleaning &amp; Hygiene services</h2><p class="lead">{d['intro']}</p></div>
+    <ul class="cl-cards">{cards}</ul>
+    <aside class="cl-strip">
+      <div><b>Need regular or once-off cleaning?</b><span>Tell us about the property and we'll help determine the right solution.</span></div>
+      {btn('contact.html#cleaning', 'Request a Cleaning Proposal', 'Get Cleaning Quote', arrow=True)}
+    </aside>
+  </div>
+</section>
+
+<section class="section section--mist cl-inc">
+  <div class="wrap cl-inc-grid">
+    <div class="cl-inc-head">
+      <span class="eyebrow cl-eyebrow">What's included</span>
+      <h2>What we clean</h2>
+      <p>Choose an area to see what our cleaning covers. Your exact scope is agreed with you after the site assessment.</p>
+    </div>
+    <div class="cl-inc-box">
+      <div class="cl-tabs" role="tablist" aria-label="Areas we clean">{tabs}</div>
+      {panels}
+    </div>
+  </div>
+</section>
+
+<section class="cl-break" aria-label="Pressure washing paving">
+  <div class="cl-break-img">{photo("clean-pressure", "A cleaner pressure washing paving", pos="50% 22%", sizes="100vw")}</div>
+  <div class="wrap cl-break-copy"><p>The details people notice begin with the work they don't.</p></div>
+</section>
+
+<section class="section cl-std">
+  <div class="wrap">
+    <div class="cl-std-head">
+      <span class="eyebrow cl-eyebrow">Safety &amp; quality</span>
+      <h2>Clean isn't enough. It has to be done correctly.</h2>
+    </div>
+    <ol class="cl-stds" data-tl><span class="cl-stds-line" aria-hidden="true"><i></i></span>{stds}</ol>
+  </div>
+</section>
+
+<section class="section section--mist cl-env" id="sites">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow cl-eyebrow">Where we clean</span><h2>Cleaning for different environments</h2><p class="lead">Once-off, scheduled and contract-based options are available.</p></div>
+    <div class="cl-env-bar" role="tablist" aria-label="Property types">{env_btns}</div>
+    {env_panels}
+  </div>
+</section>
+
+<section class="section cl-faq">
+  <div class="wrap cl-faq-grid">
+    <div class="cl-faq-head">
+      <span class="eyebrow cl-eyebrow">Questions</span>
+      <h2>Cleaning questions, answered</h2>
+      <p>Something else you'd like to know? <a href="{director_href()}">Talk to our team</a>.</p>
+    </div>
+    <div class="cl-faq-list">{faq}</div>
+  </div>
+</section>
+""" + closing + FOOTER.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/cleaning.js" defer></script>')
+
+write("cleaning.html", _cl())
 
 # =========================== INDUSTRIES ===========================
 def env_section():

@@ -235,12 +235,15 @@
   }
 
   // Pre-select from the link, e.g. contact.html#cleaning or contact.html#estate
-  var preset = (location.hash || "").replace("#", "");
+  // Also accepts a service and a property together, e.g. contact.html#cleaning,office
+  var parts = decodeURIComponent((location.hash || "").replace("#", "")).split(",");
+  var preset = parts[0];
   var svcMap = { cleaning: "cleaning", grounds: "grounds", property: "property", support: "support", building: "building", hygiene: "hygiene" };
   if (svcMap[preset]) { var box = document.getElementById("svc-" + svcMap[preset]); if (box) box.checked = true; }
-  var propBox = form.querySelector('input[name="property"][data-key="' + preset + '"]');
+  var propKey = parts[1] || preset;
+  var propBox = /^[a-z]+$/.test(propKey) ? form.querySelector('input[name="property"][data-key="' + propKey + '"]') : null;
   if (propBox) propBox.checked = true;
-  go(1, { instant: true });
+  go(propBox && svcMap[preset] ? 2 : 1, { instant: true });
   updatePreview();
   if (propBox || svcMap[preset]) {
     var assess = document.getElementById("assess");
