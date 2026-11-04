@@ -1121,7 +1121,7 @@ DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and m
              "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
              "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
 for slug, d in DIVISIONS.items():
-    if slug == "cleaning": continue
+    continue  # all four service pages now use the shared layout below
     name_html = d["name"].replace("&", "&amp;")
     svc_cards = "".join(f'<div class="card svc div-{d["key"]}"><h3>{s}</h3><p>{t}</p></div>' for s, t in d["services"])
     safety = "".join(f'<li>{CHECK_DIV}<span>{t}</span></li>' for t in d["safety"])
@@ -1185,12 +1185,9 @@ for slug, d in DIVISIONS.items():
 """ + closing_cta() + FOOTER
     write(d["file"], page)
 
-# =========================== CLEANING & HYGIENE (dedicated page) ===========================
-def cl_icon(k):
-    return (f'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" '
-            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{CL_ICON[k]}</svg>')
-
-CL_ICON = {
+# =========================== SERVICE PAGES (shared layout) ===========================
+DP_ICON = {
+    # cleaning
     "office": '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/>',
     "estate": '<path d="M3 21h18M5 21V10l5-4 5 4v11M15 21v-7l3-2 3 2v7"/><path d="M8.5 21v-4h3v4"/>',
     "home": '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
@@ -1201,128 +1198,288 @@ CL_ICON = {
     "high": '<path d="M7 21L9.5 3M17 21L14.5 3"/><path d="M9.2 6.5h5.6M8.7 10.5h6.6M8.1 14.5h7.8M7.6 18.5h8.8"/>',
     "build": '<path d="M5 16a7 7 0 0 1 14 0"/><path d="M10 9.3V6h4v3.3"/><path d="M3 16h18v2.5H3z"/>',
     "pressure": '<path d="M3 9h6l2 2h3"/><path d="M3 9v5h5v-3"/><path d="M15 11l5.5-3.5M15 11h6M15 11l5.5 3.5"/>',
+    # grounds
+    "mower": '<path d="M5 16V11h8l2.5 5"/><path d="M15.5 16l3-9H21"/><path d="M3 16h15"/><circle cx="7" cy="18.5" r="2"/><circle cx="15" cy="18.5" r="2"/>',
+    "flower": '<circle cx="12" cy="7.5" r="3"/><path d="M12 10.5V21"/><path d="M12 16c-3 0-5-2-5-4 3 0 5 2 5 4zM12 18c3 0 5-2 5-4-3 0-5 2-5 4z"/>',
+    "tree": '<path d="M12 21v-6"/><path d="M12 3a6 6 0 0 0-5.6 8.2A4 4 0 0 0 9 18h6a4 4 0 0 0 2.6-6.8A6 6 0 0 0 12 3z"/>',
+    "axe": '<path d="M14 3l7 7-3.5 3.5-7-7z"/><path d="M12.2 8.8L3 18l3 3 9.2-9.2"/>',
+    "weed": '<path d="M7 17c0-6 4-10 11-10 0 7-4 11-10 11z"/><path d="M4 20L20 4"/>',
+    "sprout": '<path d="M12 21v-8"/><path d="M12 13C12 9 9 7 5 7c0 4 3 6 7 6zM12 11c0-3 2.5-5 6-5 0 3-2.5 5-6 5z"/><path d="M7 21h10"/>',
+    "drop": '<path d="M12 3c2.5 3.2 5 6 5 9a5 5 0 0 1-10 0c0-3 2.5-5.8 5-9z"/><path d="M3 20.5c2-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 2.5 1 4.5 0"/>',
+    "bin": '<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/>',
+    "cal": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h3v3H8z"/>',
+    "spade": '<path d="M12 3v11"/><path d="M8 14h8v3a4 4 0 0 1-8 0z"/><path d="M10 3h4"/>',
+    # property care
+    "wrench": '<path d="M15 4a5 5 0 0 0-4.6 7L3 18.4 5.6 21l7.4-7.4A5 5 0 0 0 20 9l-3 3-3-1-1-3z"/>',
+    "roller": '<rect x="3" y="3" width="15" height="6" rx="1.5"/><path d="M18 6h2v5h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/>',
+    "paving": '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9.3h18M3 14.6h18M9 4v5.3M15 9.3v5.3M9 14.6V20"/>',
+    "barrow": '<path d="M2 7h3l3 8h10l2.5-6H7"/><circle cx="10" cy="19" r="2"/><path d="M18 15l1 4"/>',
+    "toolbox": '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V5h6v3M3 13h18M10 13v2h4v-2"/>',
+    "clip": '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 12.5l2 2 4-4"/>',
+    "shield": '<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+    # support
+    "event": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z"/>',
+    "people": '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.4 5 2.8 5 5.8"/>',
+    "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 }
-CL_KEYS = ["office", "estate", "home", "deep", "wash", "supply", "window", "high", "build", "pressure"]
+
+def cl_icon(k):
+    return (f'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{DP_ICON[k]}</svg>')
+
 CL_ARROW = '<span class="cl-go" aria-hidden="true">&rarr;</span>'
+DP_STD_EYEBROW = "Safety &amp; quality"
 
-CL_INCLUDED = [
-    ("work", "Workspaces", "General office cleaning, deep cleaning, window and high-level cleaning",
-     ["Workspaces", "Kitchens", "Boardrooms", "Carpets and hard floors", "Interior glazing", "Ceilings, light fittings and high surfaces"]),
-    ("wash", "Washrooms", "Hygiene and washroom services, consumable supply management",
-     ["Sanitiser", "Hygiene units", "Sanitary bin servicing", "Toilet paper", "Hand towels", "Soap, monitored and replenished"]),
-    ("common", "Common areas", "Estate and common area cleaning",
-     ["Entrances", "Clubhouses", "Walkways", "Shared facilities"]),
-    ("external", "External areas", "Pressure washing, window and glass cleaning",
-     ["Paving", "Walls", "Parking areas", "Bin areas", "Exterior glazing", "Shopfronts"]),
-]
-CL_STANDARDS = [
-    ("Colour coding", "Colour-coded cloths and mops to prevent cross-contamination."),
-    ("Product controls", "Safety data sheets for every chemical on site."),
-    ("Safe access", "Safe work-at-height methods for high-level cleaning."),
-    ("Quality checks", "Supervisor inspections against an agreed checklist."),
-]
-CL_ENV = [  # (industry key, label, services that usually apply: indexes into the cleaning services list)
-    ("office", "Commercial offices", [0, 4, 5, 6, 3, 7]),
-    ("estate", "Residential estates", [1, 9, 6, 3]),
-    ("home", "Residential homes", [2, 3, 6, 8, 9]),
-    ("retail", "Retail centres", [4, 5, 6, 9, 7]),
-    ("education", "Schools", [4, 5, 3, 6, 9]),
-    ("industrial", "Industrial facilities", [4, 7, 3, 9, 5]),
-    ("government", "Public sector", [0, 4, 5, 6, 3]),
-]
-CL_FAQ = [
-    ("Do you offer once-off cleaning?",
-     "Yes. We offer daily, scheduled and once-off cleaning, including spring cleans, move-in or move-out cleans and periodic deep cleans."),
-    ("Do you provide cleaning consumables?",
-     "Yes. Consumable supply management is part of our cleaning service: toilet paper, hand towels and soap are monitored and replenished."),
-    ("Do you service residential estates?",
-     "Yes. We clean estate entrances, clubhouses, walkways and shared facilities, and can pressure wash paving, walls, parking areas and bin areas."),
-    ("Do you provide post-construction cleaning?",
-     "Yes. Our builders' cleans get new or renovated spaces ready for handover."),
-    ("How do you manage cleaning chemicals on site?",
-     "We keep safety data sheets for every chemical on site, and use colour-coded cloths and mops to prevent cross-contamination. Supervisors inspect the work against an agreed checklist."),
-    ("How do I request a site assessment?",
-     "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit."),
-]
+DP = {
+"cleaning": dict(
+    acc="clean", cat_icon="wash", name="Cleaning &amp; Hygiene",
+    h1=("Clean spaces.", "Healthier environments."),
+    lead="Professional cleaning and hygiene solutions for workplaces, estates, homes and public areas, delivered by trained, uniformed teams with the right equipment and consumables.",
+    hero=("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "50% 60%"),
+    icons=["office", "estate", "home", "deep", "wash", "supply", "window", "high", "build", "pressure"],
+    svc_title="Cleaning &amp; Hygiene services",
+    strip=("Need regular or once-off cleaning?", "Tell us about the property and we'll help determine the right solution."),
+    cta=("Request a Cleaning Proposal", "Get Cleaning Quote"),
+    inc_title="What we clean", inc_noun="cleaning", inc_aria="Areas we clean",
+    inc=[("work", "Workspaces", "General office cleaning, deep cleaning, window and high-level cleaning",
+          ["Workspaces", "Kitchens", "Boardrooms", "Carpets and hard floors", "Interior glazing", "Ceilings, light fittings and high surfaces"]),
+         ("wash", "Washrooms", "Hygiene and washroom services, consumable supply management",
+          ["Sanitiser", "Hygiene units", "Sanitary bin servicing", "Toilet paper", "Hand towels", "Soap, monitored and replenished"]),
+         ("common", "Common areas", "Estate and common area cleaning",
+          ["Entrances", "Clubhouses", "Walkways", "Shared facilities"]),
+         ("external", "External areas", "Pressure washing, window and glass cleaning",
+          ["Paving", "Walls", "Parking areas", "Bin areas", "Exterior glazing", "Shopfronts"])],
+    brk=("clean-pressure", "A cleaner pressure washing paving", "50% 22%", "Pressure washing paving"),
+    brk_text="The details people notice begin with the work they don't.",
+    std_title="Clean isn't enough. It has to be done correctly.",
+    std=[("Colour coding", "Colour-coded cloths and mops to prevent cross-contamination."),
+         ("Product controls", "Safety data sheets for every chemical on site."),
+         ("Safe access", "Safe work-at-height methods for high-level cleaning."),
+         ("Quality checks", "Supervisor inspections against an agreed checklist.")],
+    env_eyebrow="Where we clean", env_title="Cleaning for different environments", env_for="Cleaning for", env_noun="cleaning",
+    env=[("office", "Commercial offices", [0, 4, 5, 6, 3, 7]), ("estate", "Residential estates", [1, 9, 6, 3]),
+         ("home", "Residential homes", [2, 3, 6, 8, 9]), ("retail", "Retail centres", [4, 5, 6, 9, 7]),
+         ("education", "Schools", [4, 5, 3, 6, 9]), ("industrial", "Industrial facilities", [4, 7, 3, 9, 5]),
+         ("government", "Public sector", [0, 4, 5, 6, 3])],
+    faq_title="Cleaning questions, answered",
+    faq=[("Do you offer once-off cleaning?", "Yes. We offer daily, scheduled and once-off cleaning, including spring cleans, move-in or move-out cleans and periodic deep cleans."),
+         ("Do you provide cleaning consumables?", "Yes. Consumable supply management is part of our cleaning service: toilet paper, hand towels and soap are monitored and replenished."),
+         ("Do you service residential estates?", "Yes. We clean estate entrances, clubhouses, walkways and shared facilities, and can pressure wash paving, walls, parking areas and bin areas."),
+         ("Do you provide post-construction cleaning?", "Yes. Our builders' cleans get new or renovated spaces ready for handover."),
+         ("How do you manage cleaning chemicals on site?", "We keep safety data sheets for every chemical on site, and use colour-coded cloths and mops to prevent cross-contamination. Supervisors inspect the work against an agreed checklist."),
+         ("How do I request a site assessment?", "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit.")],
+),
+"grounds": dict(
+    acc="grounds", cat_icon="tree", name="Grounds &amp; Landscaping",
+    h1=("Outdoor spaces that", "make a first impression."),
+    lead="Grounds care and landscaping that keep homes, estates, office parks and facilities neat, green and inviting all year round, delivered by trained teams with well-maintained equipment.",
+    hero=("grounds-hedge", "A groundskeeper in gloves clearing cut branches from a hedge", "62% 35%"),
+    icons=["mower", "flower", "tree", "axe", "weed", "sprout", "drop", "bin", "cal", "spade"],
+    svc_title="Grounds &amp; Landscaping services",
+    strip=("Need a grounds programme or a once-off project?", "Tell us about the property and we'll help determine the right solution."),
+    cta=("Request a Landscaping Proposal", "Get Landscaping Quote"),
+    inc_title="What we look after", inc_noun="grounds care", inc_aria="Areas we look after",
+    inc=[("lawns", "Lawns &amp; beds", "Lawn maintenance, garden services",
+          ["Mowing", "Edging", "Lawn health care", "Beds", "Pruning", "Mulching"]),
+         ("trees", "Trees &amp; clearing", "Tree trimming and pruning, bush clearing",
+          ["Shaping and thinning", "Safe removal of branches", "Overgrown areas", "Vacant land"]),
+         ("paving", "Paving &amp; verges", "Weed control, garden refuse and waste clearing",
+          ["Paving kept weed-free", "Beds kept weed-free", "Verges kept weed-free", "Green waste removed", "Site rubbish removed to licensed sites"]),
+         ("water", "Water &amp; planting", "Irrigation, seasonal planting, once-off projects",
+          ["New irrigation systems", "Leak and coverage checks", "Seasonal planting", "Garden makeovers", "Instant lawn", "Landscape installations"])],
+    brk=("grounds-trim", "A groundskeeper trimming grass along a row of trees", "50% 45%", "Grounds maintenance"),
+    brk_text="Well-kept grounds are the first thing visitors notice.",
+    std_title="Good grounds care is safe, responsible work.",
+    std=[("Trained operators", "Trained operators and full PPE for mowers, brushcutters and chainsaws."),
+         ("Water-wise", "Water-wise practices and indigenous planting."),
+         ("Responsible disposal", "Garden refuse removed to licensed sites, never dumped or burned."),
+         ("Agreed programmes", "Scheduled programmes agreed and inspected per site.")],
+    env_eyebrow="Where we work", env_title="Grounds care for different properties", env_for="Grounds care for", env_noun="landscaping",
+    env=[("estate", "Residential estates", [8, 0, 1, 2, 6, 5, 4]), ("home", "Residential homes", [0, 1, 2, 9, 6]),
+         ("office", "Office parks", [8, 0, 1, 4, 6]), ("industrial", "Industrial facilities", [3, 4, 0, 7, 2]),
+         ("education", "Schools", [0, 2, 3, 4, 8]), ("retail", "Retail centres", [1, 5, 4, 6]),
+         ("government", "Public sector", [3, 0, 2, 4, 7])],
+    faq_title="Grounds questions, answered",
+    faq=[("Do you take on once-off garden projects?", "Yes. As well as scheduled grounds programmes, we take on once-off projects such as garden makeovers, instant lawn and landscape installations."),
+         ("Do you clear overgrown areas and vacant land?", "Yes. Our teams clear overgrown areas and vacant land safely."),
+         ("What happens to garden refuse?", "Green waste and site rubbish are removed to licensed sites, never dumped or burned."),
+         ("Can you install or check irrigation?", "Yes. We install new irrigation systems and check existing ones for leaks and coverage."),
+         ("Do you use water-wise practices?", "Yes. We follow water-wise practices and use indigenous planting."),
+         ("How do I request a site assessment?", "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit.")],
+),
+"property": dict(
+    acc="property", cat_icon="wrench", name="Property Care &amp; Building Works",
+    h1=("From small repairs", "to major works."),
+    lead="Proactive maintenance and repairs from MFS's own teams, with specialist building and civil works delivered through our partner, Ecotech Engineering.",
+    hero=("property-paving", "A worker in safety boots laying paving blocks", "50% 55%"),
+    icons=["wrench", "roller", "paving", "barrow", "toolbox", "clip", "shield"],
+    svc_title="Property Care services",
+    strip=("Need repairs, maintenance or an inspection?", "Tell us about the property and we'll help determine the right solution."),
+    cta=("Book a Site Inspection", "Book Inspection"),
+    inc_title="What we take care of", inc_noun="property care", inc_aria="Types of work",
+    inc=[("repairs", "Repairs &amp; painting", "Minor repairs and maintenance, painting, general handyman services",
+          ["Doors", "Locks", "Fittings", "Everyday fixes", "Interior painting", "Exterior painting"]),
+         ("paving", "Paving &amp; rubble", "Paving repairs, rubble removal",
+          ["Lifted paving", "Cracked paving", "Sunken paving", "Building rubble cleared", "Debris removed"]),
+         ("inspect", "Inspections", "Building inspections, preventative maintenance support",
+          ["Condition checks", "Photo reports", "Clear priorities", "Scheduled preventative checks"]),
+         ("works", "Building works", "Building &amp; Civil Works, delivered through Ecotech Engineering", None)],
+    brk=("equipment-van", "A service van loaded with cleaning and maintenance equipment", "50% 62%", "Equipment ready on site"),
+    brk_text="Small problems, caught early, stay small.",
+    std_title="Done safely. Documented clearly.",
+    std=[("Plan first", "Risk assessment and method statement before work starts."),
+         ("Photo records", "Photo-documented inspections and condition reports."),
+         ("Compliance", "Construction Regulations compliance on building projects, with Ecotech."),
+         ("Responsible removal", "Rubble and waste removed responsibly.")],
+    env_eyebrow="Where we work", env_title="Property care for different properties", env_for="Property care for", env_noun="property care",
+    env=[("estate", "Residential estates", [6, 2, 1, 5, 0]), ("home", "Residential homes", [4, 0, 1, 2, 3]),
+         ("office", "Commercial offices", [6, 0, 1, 5]), ("retail", "Retail centres", [0, 1, 2, 6]),
+         ("industrial", "Industrial facilities", [5, 6, 2, 3]), ("education", "Schools", [6, 0, 1, 2, 5]),
+         ("government", "Public sector", [5, 6, 0, 1])],
+    faq_title="Property care questions, answered",
+    faq=[("Do you handle small repairs?", "Yes. Our own teams handle doors, locks, fittings and everyday fixes, as well as interior and exterior painting."),
+         ("Do you do building and civil works?", "Yes, through our strategic partnership with Ecotech Engineering: civil construction, paving and surfacing, stormwater systems, building refurbishment, concrete works, infrastructure maintenance and building upgrades."),
+         ("What does a building inspection include?", "A condition check with a photo report and clear priorities, so you can make informed decisions about your property."),
+         ("Can you remove building rubble?", "Yes. Building rubble and debris are cleared and removed responsibly."),
+         ("How do you work safely on site?", "A risk assessment and method statement are completed before work starts, and building projects comply with the Construction Regulations, with Ecotech."),
+         ("How do I book a site inspection?", "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit.")],
+),
+"support": dict(
+    acc="support", cat_icon="people", name="Support Services",
+    h1=("Extra hands when", "your operations need them."),
+    lead="Flexible support solutions, from events to everyday site needs, with reliable, inducted people for the moments your site needs more than its usual team.",
+    hero=("support-steps", "A uniformed team carrying equipment across a property", "50% 72%"),
+    icons=["event", "bin", "wrench", "people", "clock"],
+    svc_title="Support services",
+    strip=("Need extra hands on site?", "Tell us what's coming up and we'll help determine the right support."),
+    cta=("Request a Support Proposal", "Get Support Quote"),
+    inc_title="How we can help", inc_noun="support", inc_aria="Types of support",
+    inc=[("events", "Events", "Event support services",
+          ["Setup", "Cleaning", "Site support before, during and after events", "One coordinator per event"]),
+         ("waste", "Waste", "Waste management coordination",
+          ["Bin areas", "Scheduled removals", "Recycling", "Licensed providers"]),
+         ("daily", "Day-to-day", "Facilities assistance, site support personnel",
+          ["Day-to-day facility tasks", "Reliable, inducted staff", "Uniformed personnel"]),
+         ("peak", "Peak periods", "General operational support",
+          ["Help for peak periods", "Short-term operational needs", "Once-off or ongoing support"])],
+    brk=("team-walk", "A uniformed MFS team walking up to a property with equipment", "50% 55%", "Our team arriving on site"),
+    brk_text="The right people, when your site needs them.",
+    std_title="Reliable people, properly briefed.",
+    std=[("Vetted staff", "Vetted, inducted and uniformed staff."),
+         ("Safety briefings", "Site-specific safety briefings before work starts."),
+         ("Licensed waste", "Waste handled through licensed providers."),
+         ("One coordinator", "One coordinator per event or assignment.")],
+    env_eyebrow="Where we work", env_title="Support for different sites", env_for="Support for", env_noun="support",
+    env=[("office", "Commercial offices", [2, 3, 1, 0]), ("estate", "Residential estates", [1, 0, 3, 2]),
+         ("retail", "Retail centres", [0, 1, 3, 4]), ("industrial", "Industrial facilities", [3, 4, 1, 2]),
+         ("education", "Schools", [0, 1, 2, 3]), ("government", "Public sector", [0, 2, 3, 4, 1])],
+    faq_title="Support questions, answered",
+    faq=[("Do you provide support for events?", "Yes. We provide setup, cleaning and site support before, during and after events, with one coordinator per event."),
+         ("Are your support staff vetted?", "Yes. Our support staff are vetted, inducted and uniformed, and receive a site-specific safety briefing before work starts."),
+         ("Can you coordinate waste removal?", "Yes. We coordinate bin areas, scheduled removals and recycling with licensed providers."),
+         ("Is short-term support available?", "Yes. We offer flexible help for peak periods and short-term needs, once-off or ongoing."),
+         ("How do I request support?", "Answer five short questions on our contact page, or call or WhatsApp us. Our team reviews your request and visits your site, free of charge, and you receive a tailored proposal within 5 working days of the visit.")],
+),
+}
 
-def _cl():
-    d = DIVISIONS["cleaning"]
+def dp_building():
+    return f"""
+<section class="section section--navy sv-build-sec" id="building">
+  <div class="wrap two-col">
+    <div class="stack" style="gap:18px">
+      <p class="sv-eyebrow sv-eyebrow--gold">Building &amp; Civil Works</p>
+      <h2>Delivered through Ecotech Engineering</h2>
+      <p>Through our strategic partnership with Ecotech Engineering, we provide specialist building and civil works supported by qualified technical expertise and project delivery capabilities.</p>
+      <div class="sv-link-line" aria-hidden="true"><span class="sv-ll-a">MFS</span><i><b></b></i><span class="sv-ll-b">{eco_logo(22)}</span></div>
+      <div class="btn-row">{btn('contact.html#building', 'Request a Building Works Proposal', 'Get Proposal', arrow=True)}</div>
+    </div>
+    <ul class="sv-build-list">{''.join(f'<li><span aria-hidden="true"></span>{b}</li>' for b in BUILD)}</ul>
+  </div>
+</section>"""
+
+def dp_page(slug):
+    d, c = DIVISIONS[slug], DP[slug]
     svcs = d["services"]
+    ic = c["icons"]
+    long, short = c["cta"]
     cards = "".join(
-        f'<li class="cl-card"><span class="cl-ic">{cl_icon(CL_KEYS[i])}</span><h3>{t}</h3><p>{x}</p>{CL_ARROW}</li>'
+        f'<li class="cl-card"><span class="cl-ic">{cl_icon(c["icons"][i])}</span><h3>{t}</h3><p>{x}</p>{CL_ARROW}</li>'
         for i, (t, x) in enumerate(svcs))
     tabs = "".join(
         f'<button class="cl-tab" type="button" role="tab" id="clt-{k}" aria-controls="clp-{k}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{n}</button>'
-        for i, (k, n, _u, _l) in enumerate(CL_INCLUDED))
+        for i, (k, n, _u, _l) in enumerate(c["inc"]))
     panels = "".join(
         f'<div class="cl-panel" role="tabpanel" id="clp-{k}" aria-labelledby="clt-{k}"{"" if i == 0 else " hidden"}>'
-        f'<ul class="cl-checks">{"".join(f"<li>{CHECK}<span>{x}</span></li>" for x in items)}</ul>'
+        f'<ul class="cl-checks">{"".join(f"<li>{CHECK}<span>{x}</span></li>" for x in (items or BUILD))}</ul>'
         f'<p class="cl-under">Part of: {u}</p></div>'
-        for i, (k, n, u, items) in enumerate(CL_INCLUDED))
-    stds = "".join(f'<li><span class="cl-std-n">0{i}</span><b>{t}</b><span>{x}</span></li>' for i, (t, x) in enumerate(CL_STANDARDS, 1))
+        for i, (k, n, u, items) in enumerate(c["inc"]))
+    stds = "".join(f'<li><span class="cl-std-n">0{i}</span><b>{t}</b><span>{x}</span></li>' for i, (t, x) in enumerate(c["std"], 1))
     env_desc = {k: t for k, _n, t in INDUSTRIES}
     env_btns = "".join(
         f'<button class="cl-env-b" type="button" role="tab" id="cle-{k}" aria-controls="clep-{k}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{prop_icon(k)}<span>{n}</span></button>'
-        for i, (k, n, _s) in enumerate(CL_ENV))
+        for i, (k, n, _s) in enumerate(c["env"]))
     env_panels = "".join(
         f'<div class="cl-env-p" role="tabpanel" id="clep-{k}" aria-labelledby="cle-{k}"{"" if i == 0 else " hidden"}>'
         f'<div class="cl-env-art" aria-hidden="true">{prop_icon(k)}</div>'
-        f'<div class="cl-env-body"><span class="cl-label">Cleaning for</span><h3>{n}</h3><p>{env_desc.get(k, "")}</p>'
-        f'<p class="cl-label">Services that usually apply</p><ul class="cl-env-s">{"".join(f"<li>{cl_icon(CL_KEYS[j])}<span>{svcs[j][0]}</span></li>" for j in idx)}</ul>'
-        f'<a class="cl-link" href="contact.html#cleaning,{k}">Request a cleaning proposal for this property <span aria-hidden="true">&rarr;</span></a></div></div>'
-        for i, (k, n, idx) in enumerate(CL_ENV))
-    faq = "".join(f'<details class="cl-faq-i"><summary><span>{q}</span><i aria-hidden="true"></i></summary><div class="cl-faq-a"><p>{a}</p></div></details>' for q, a in CL_FAQ)
+        f'<div class="cl-env-body"><span class="cl-label">{c["env_for"]}</span><h3>{n}</h3><p>{env_desc.get(k, "")}</p>'
+        f'<p class="cl-label">Services that usually apply</p><ul class="cl-env-s">{"".join(f"<li>{cl_icon(ic[j])}<span>{svcs[j][0]}</span></li>" for j in idx)}</ul>'
+        f'<a class="cl-link" href="contact.html#{slug},{k}">Request a {c["env_noun"]} proposal for this property <span aria-hidden="true">&rarr;</span></a></div></div>'
+        for i, (k, n, idx) in enumerate(c["env"]))
+    faq = "".join(f'<details class="cl-faq-i"><summary><span>{q}</span><i aria-hidden="true"></i></summary><div class="cl-faq-a"><p>{a}</p></div></details>' for q, a in c["faq"])
     closing = closing_cta().replace(
-        'href="contact.html"><span class="lbl-lg">Request a Proposal', 'href="contact.html#cleaning"><span class="lbl-lg">Request a Cleaning Proposal')
-    return head("Cleaning & Hygiene | Moisapula Facilities Solutions", d["pitch"], d["file"]) + header("services.html") + f"""
+        'href="contact.html"><span class="lbl-lg">Request a Proposal', f'href="contact.html#{slug}"><span class="lbl-lg">{long}')
+    n7 = " cl-cards--n7" if len(svcs) == 7 else (" cl-cards--n5" if len(svcs) == 5 else "")
+    hp, bp = c["hero"], c["brk"]
+    return head(f"{d['name']} | Moisapula Facilities Solutions", d["pitch"], d["file"]) + header("services.html") + f"""
+<div class="acc-{c['acc']}">
 <section class="cl-hero">
   <div class="wrap cl-hero-grid">
     <div class="cl-hero-copy">
-      <span class="crumbs cl-crumbs"><a href="services.html">Services</a> / Cleaning &amp; Hygiene</span>
-      <p class="cl-cat"><span class="cl-cat-i">{cl_icon("wash")}</span>Cleaning &amp; Hygiene</p>
-      <h1><span>Clean spaces.</span> <span>Healthier environments.</span></h1>
-      <p class="lead">Professional cleaning and hygiene solutions for workplaces, estates, homes and public areas, delivered by trained, uniformed teams with the right equipment and consumables.</p>
-      <div class="cl-hero-cta">{btn('contact.html#cleaning', 'Request a Cleaning Proposal', 'Get Cleaning Quote', arrow=True)}<a class="cl-link" href="{director_href()}">Talk to our team <span aria-hidden="true">&rarr;</span></a></div>
+      <span class="crumbs cl-crumbs"><a href="services.html">Services</a> / {c['name']}</span>
+      <p class="cl-cat"><span class="cl-cat-i">{cl_icon(c['cat_icon'])}</span>{c['name']}</p>
+      <h1{' class="cl-h1-long"' if slug != 'cleaning' else ''}><span>{c['h1'][0]}</span> <span>{c['h1'][1]}</span></h1>
+      <p class="lead">{c['lead']}</p>
+      <div class="cl-hero-cta">{btn('contact.html#' + slug, long, short, arrow=True)}<a class="cl-link" href="{director_href()}">Talk to our team <span aria-hidden="true">&rarr;</span></a></div>
     </div>
-    <figure class="cl-hero-photo"><span class="cl-mask" aria-hidden="true"></span>{photo("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", pos="50% 60%", sizes="(max-width: 960px) 100vw, 50vw", eager=True)}</figure>
+    <figure class="cl-hero-photo"><span class="cl-mask" aria-hidden="true"></span>{photo(hp[0], hp[1], pos=hp[2], sizes="(max-width: 960px) 100vw, 50vw", eager=True)}</figure>
   </div>
 </section>
 
 <section class="section cl-services" id="services">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow cl-eyebrow">What we do</span><h2>Cleaning &amp; Hygiene services</h2><p class="lead">{d['intro']}</p></div>
-    <ul class="cl-cards">{cards}</ul>
+    <div class="section-head"><span class="eyebrow cl-eyebrow">What we do</span><h2>{c['svc_title']}</h2><p class="lead">{d['intro']}</p></div>
+    <ul class="cl-cards{n7}">{cards}</ul>
     <aside class="cl-strip">
-      <div><b>Need regular or once-off cleaning?</b><span>Tell us about the property and we'll help determine the right solution.</span></div>
-      {btn('contact.html#cleaning', 'Request a Cleaning Proposal', 'Get Cleaning Quote', arrow=True)}
+      <div><b>{c['strip'][0]}</b><span>{c['strip'][1]}</span></div>
+      {btn('contact.html#' + slug, long, short, arrow=True)}
     </aside>
   </div>
 </section>
-
+{dp_building() if slug == "property" else ""}
 <section class="section section--mist cl-inc">
   <div class="wrap cl-inc-grid">
     <div class="cl-inc-head">
       <span class="eyebrow cl-eyebrow">What's included</span>
-      <h2>What we clean</h2>
-      <p>Choose an area to see what our cleaning covers. Your exact scope is agreed with you after the site assessment.</p>
+      <h2>{c['inc_title']}</h2>
+      <p>Choose an area to see what our {c['inc_noun']} covers. Your exact scope is agreed with you after the site assessment.</p>
     </div>
     <div class="cl-inc-box">
-      <div class="cl-tabs" role="tablist" aria-label="Areas we clean">{tabs}</div>
+      <div class="cl-tabs" role="tablist" aria-label="{c['inc_aria']}">{tabs}</div>
       {panels}
     </div>
   </div>
 </section>
 
-<section class="cl-break" aria-label="Pressure washing paving">
-  <div class="cl-break-img">{photo("clean-pressure", "A cleaner pressure washing paving", pos="50% 22%", sizes="100vw")}</div>
-  <div class="wrap cl-break-copy"><p>The details people notice begin with the work they don't.</p></div>
+<section class="cl-break" aria-label="{bp[3]}">
+  <div class="cl-break-img">{photo(bp[0], bp[1], pos=bp[2], sizes="100vw")}</div>
+  <div class="wrap cl-break-copy"><p>{c['brk_text']}</p></div>
 </section>
 
 <section class="section cl-std">
   <div class="wrap">
     <div class="cl-std-head">
-      <span class="eyebrow cl-eyebrow">Safety &amp; quality</span>
-      <h2>Clean isn't enough. It has to be done correctly.</h2>
+      <span class="eyebrow cl-eyebrow">{DP_STD_EYEBROW}</span>
+      <h2>{c['std_title']}</h2>
     </div>
     <ol class="cl-stds" data-tl><span class="cl-stds-line" aria-hidden="true"><i></i></span>{stds}</ol>
   </div>
@@ -1330,7 +1487,7 @@ def _cl():
 
 <section class="section section--mist cl-env" id="sites">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow cl-eyebrow">Where we clean</span><h2>Cleaning for different environments</h2><p class="lead">Once-off, scheduled and contract-based options are available.</p></div>
+    <div class="section-head"><span class="eyebrow cl-eyebrow">{c['env_eyebrow']}</span><h2>{c['env_title']}</h2><p class="lead">Once-off, scheduled and contract-based options are available.</p></div>
     <div class="cl-env-bar" role="tablist" aria-label="Property types">{env_btns}</div>
     {env_panels}
   </div>
@@ -1340,15 +1497,17 @@ def _cl():
   <div class="wrap cl-faq-grid">
     <div class="cl-faq-head">
       <span class="eyebrow cl-eyebrow">Questions</span>
-      <h2>Cleaning questions, answered</h2>
+      <h2>{c['faq_title']}</h2>
       <p>Something else you'd like to know? <a href="{director_href()}">Talk to our team</a>.</p>
     </div>
     <div class="cl-faq-list">{faq}</div>
   </div>
 </section>
-""" + closing + FOOTER.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/cleaning.js" defer></script>')
+</div>
+""" + closing + FOOTER.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/services.js" defer></script>\n<script src="assets/js/cleaning.js" defer></script>' if slug == "property" else '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/cleaning.js" defer></script>')
 
-write("cleaning.html", _cl())
+for _slug in ["cleaning", "grounds", "property", "support"]:
+    write(DIVISIONS[_slug]["file"], dp_page(_slug))
 
 # =========================== INDUSTRIES ===========================
 def env_section():

@@ -2624,3 +2624,17 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
   .cl-break-img { transform: none !important; }
   .cl-panel:not([hidden]) .cl-checks li, .cl-env-p:not([hidden]) { animation: none; }
 }
+
+/* ===================== Service pages: per-service accents ===================== */
+.acc-clean { --cl: #3FA7D6; --cl-ink: #1D6F99; --cl-pale: #EAF5FB; --cl-line: #CDE6F3; --cl-tint: #EEF6FA; }
+.acc-grounds { --cl: #4C9A52; --cl-ink: #2F6E36; --cl-pale: #EBF5EC; --cl-line: #CFE5D1; --cl-tint: #EEF5EE; }
+.acc-property { --cl: #E06A2C; --cl-ink: #A9461A; --cl-pale: #FCEFE7; --cl-line: #F4D5C3; --cl-tint: #FAF0E9; }
+.acc-support { --cl: #7E5A9B; --cl-ink: #63417F; --cl-pale: #F2EDF7; --cl-line: #DCCFE8; --cl-tint: #F3EFF7; }
+.cl-hero { background: linear-gradient(180deg, var(--stone) 0%, var(--stone) 70%, var(--cl-tint, #EEF6FA) 100%); }
+.cl-card:hover { box-shadow: 0 18px 36px color-mix(in srgb, var(--cl) 16%, transparent); }
+.cl-cards--n7 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1180px) { .cl-cards--n5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 960px) { .cl-cards--n7, .cl-cards--n5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .cl-cards--n7, .cl-cards--n5 { grid-template-columns: 1fr; } }
+.cl-hero h1.cl-h1-long { font-size: clamp(2.3rem, 4vw, 3.5rem); line-height: 1.04; }
+.cl-env-art { background: radial-gradient(circle at 50% 45%, var(--cl-pale), var(--cl-tint, #F5FAFD) 70%); }
