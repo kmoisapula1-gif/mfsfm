@@ -2638,3 +2638,8 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.12; }
 @media (max-width: 600px) { .cl-cards--n7, .cl-cards--n5 { grid-template-columns: 1fr; } }
 .cl-hero h1.cl-h1-long { font-size: clamp(2.3rem, 4vw, 3.5rem); line-height: 1.04; }
 .cl-env-art { background: radial-gradient(circle at 50% 45%, var(--cl-pale), var(--cl-tint, #F5FAFD) 70%); }
+.cl-back { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 16px 6px 12px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); color: var(--navy); font-weight: 700; font-size: .92rem; text-decoration: none; transition: border-color .2s ease, background-color .2s ease; }
+.cl-back span { color: var(--cl-ink); transition: transform .2s ease; }
+.cl-back:hover, .cl-back:focus-visible { border-color: var(--cl); background: var(--cl-pale); }
+.cl-back:hover span { transform: translateX(-3px); }
+@media (prefers-reduced-motion: no-preference) { .cl-hero .cl-back { animation: clUp .45s var(--ease-premium, ease) both; } }
