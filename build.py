@@ -1019,67 +1019,100 @@ def division_overview(slug):
 </div>"""
 
 
-def four_division(slug, alt):
-    d = DIVISIONS[slug]
-    name_html = d["name"].replace("&", "&amp;")
-    items = "".join(f'<li><b>{t}</b><span>{x}</span></li>' for t, x in d["services"])
-    long, short = d["cta"]
-    ph = DIV_PHOTO[slug]
-    return f"""<section class="section{' section--mist' if alt else ''} fs-div div-{d['key']}" id="{slug}">
-  <div class="wrap fs-grid">
-    <div class="fs-copy">
-      <span class="fs-tag"><i></i>{name_html}</span>
-      <h2>{d['tagline']}</h2>
-      <p class="lead">{d['pitch']}</p>
-      <ul class="fs-list">{items}</ul>
-      <div class="btn-row">{btn('contact.html#' + slug, long, short)}<a class="fs-more" href="{d['file']}">More about {name_html} <span aria-hidden="true">&rarr;</span></a></div>
-    </div>
-    <figure class="fs-photo">{photo(ph[0], ph[1], pos=ph[3], sizes="(max-width: 960px) 100vw, 40vw")}</figure>
-  </div>
-</section>"""
-
 DIV_PHOTO = {"cleaning": ("clean-home", "Two cleaners in uniform vacuuming and mopping a living room", "", "50% 60%"),
              "grounds": ("grounds-hedge", "A groundskeeper in gloves clearing cut branches from a hedge", "", "62% 35%"),
              "property": ("property-paving", "A worker in safety boots laying paving blocks", "", "50% 55%"),
              "support": ("support-steps", "A uniformed team carrying equipment across a property", "", "50% 72%")}
-jump = "".join(f'<a href="#{s_}"><i class="div-{DIVISIONS[s_]["key"]}"></i>{DIVISIONS[s_]["name"].replace("&", "&amp;")}</a>' for s_ in ["cleaning", "grounds", "property", "support"]) + '<a href="#building"><i style="background:var(--c-build)"></i>Building &amp; Civil Works</a>'
-who = "".join(f'<li>{prop_icon(k)}<span><b>{n}</b>{t}</span></li>' for k, n, t in INDUSTRIES)
+SV_ORDER = ["cleaning", "grounds", "property", "support"]
+SV_SHORT = {"cleaning": "Cleaning", "grounds": "Grounds", "property": "Property Care", "support": "Support"}
+SV_NEED = {"cleaning": "Need cleaning support?", "grounds": "Need help with your grounds?",
+           "property": "Need repairs or maintenance?", "support": "Need extra hands on site?"}
+SV_ARROW = '<span class="arr" aria-hidden="true">&rarr;</span>'
+SV_NAMES = {"cleaning": "Cleaning &amp; Hygiene", "grounds": "Grounds &amp; Landscaping", "property": "Property Care", "support": "Support Services"}
+SV_CTA = {"cleaning": ("Request a Cleaning Proposal", "Get Cleaning Quote"), "grounds": ("Request a Landscaping Proposal", "Get Landscaping Quote"),
+          "property": ("Book a Site Inspection", "Book Inspection"), "support": ("Request a Support Proposal", "Get Support Quote")}
+
+def sv_nav(cls=""):
+    items = "".join(f'<a class="sv-pill sv-{DIVISIONS[k]["key"]}" href="#{k}" data-sv="{k}">{icon(DIVISIONS[k]["key"], 20)}<span class="sv-pill-l">{SV_NAMES[k]}</span><span class="sv-pill-s">{SV_SHORT[k]}</span>{SV_ARROW}</a>' for k in SV_ORDER)
+    items += f'<a class="sv-pill sv-build" href="#building" data-sv="building">{icon("build", 20)}<span class="sv-pill-l">Building &amp; Civil Works</span><span class="sv-pill-s">Building</span>{SV_ARROW}</a>'
+    return f'<nav class="sv-nav {cls}" aria-label="Jump to a service">{items}</nav>'
+
+def sv_section(slug, n, alt):
+    d = DIVISIONS[slug]
+    name_html = SV_NAMES[slug]
+    caps = "".join(f'<li><details class="sv-cap" open><summary><b>{t}</b><span class="sv-cap-go" aria-hidden="true">&rarr;</span></summary><p>{x}</p></details></li>' for t, x in d["services"])
+    long, short = SV_CTA[slug]
+    ph = DIV_PHOTO[slug]
+    return f"""<section class="section sv-div{' section--mist' if alt else ''} sv-{d['key']}{' sv-flip' if alt else ''}" id="{slug}" data-sv-sec="{slug}">
+  <div class="wrap sv-grid">
+    <div class="sv-copy">
+      <p class="sv-eyebrow"><span>0{n}</span>{name_html}</p>
+      <h2>{d['tagline']}</h2>
+      <p class="lead">{d['pitch']}</p>
+      <p class="sv-label">What we take care of</p>
+      <ul class="sv-caps">{caps}</ul>
+      <div class="sv-cta">
+        <p class="sv-need">{SV_NEED[slug]}</p>
+        <div class="btn-row">{btn('contact.html#' + slug, long, short, arrow=True)}<a class="sv-explore" href="{d['file']}">Explore {name_html} <span aria-hidden="true">&#8599;</span></a></div>
+      </div>
+    </div>
+    <figure class="sv-photo" data-depth><span class="sv-frame" aria-hidden="true"></span><span class="sv-veil" aria-hidden="true"></span>{photo(ph[0], ph[1], pos=ph[3], sizes="(max-width: 960px) 100vw, 45vw")}</figure>
+  </div>
+</section>"""
+
+def sv_tags(k):
+    return "".join(f'<li class="sv-{DIVISIONS[x]["key"]}"><i></i>{SV_NAMES[x]}</li>' for x in SVX_MATCH.get(k, []))
+
+SV_HOW = [("Tell us about your property", "Five short questions about your site, the services you need and how often."),
+          ("We assess your requirements", "Our team reviews your request and visits your site, free of charge."),
+          ("Receive a tailored proposal", "A clear scope, schedule and price, within 5 working days of the visit."),
+          ("Start improving your site", "Trained teams and regular reporting from day one.")]
+who = "".join(
+    f'<li class="sv-prop" tabindex="0"><span class="sv-prop-i">{prop_icon(k)}</span><b>{n}</b><span class="sv-prop-t">{t}</span>'
+    f'<ul class="sv-prop-s" aria-label="Recommended services">{sv_tags(k)}</ul></li>'
+    for k, n, t in INDUSTRIES)
+how = "".join(f'<li><span class="sv-how-n">0{i}</span><b>{t}</b><span>{d}</span></li>' for i, (t, d) in enumerate(SV_HOW, 1))
 services = head("Services | Moisapula Facilities Solutions",
                 "Cleaning & Hygiene, Grounds & Landscaping, Property Care, Support Services and Building & Civil Works for homes, estates and businesses in Gauteng.",
                 "services.html") + header("services.html") + f"""
-<section class="page-hero">
+<section class="sv-hero">
   <div class="wrap">
     <span class="eyebrow">Our services</span>
-    <h1>Everything your property needs</h1>
+    <h1>Everything your property needs.</h1>
     <p class="lead">Four service divisions delivered by our own trained teams, plus building and civil works through our partner, Ecotech Engineering. Book once-off or on a schedule.</p>
-    <nav class="fs-jump" aria-label="Jump to a service">{jump}</nav>
+    {sv_nav("sv-nav--hero")}
   </div>
 </section>
-{four_division("cleaning", False)}
-{four_division("grounds", True)}
-{four_division("property", False)}
-{four_division("support", True)}
-<section class="section section--navy" id="building">
+{sv_nav("sv-nav--sticky")}
+{sv_section("cleaning", 1, False)}
+{sv_section("grounds", 2, True)}
+{sv_section("property", 3, False)}
+{sv_section("support", 4, True)}
+<section class="section section--navy sv-build-sec" id="building" data-sv-sec="building">
   <div class="wrap two-col">
     <div class="stack" style="gap:18px">
-      <span class="eyebrow">Delivered through Ecotech Engineering</span>
-      <h2>Building &amp; Civil Works</h2>
+      <p class="sv-eyebrow sv-eyebrow--gold"><span>05</span>Building &amp; Civil Works</p>
+      <h2>Delivered through Ecotech Engineering</h2>
       <p>Through our strategic partnership with Ecotech Engineering, we provide specialist building and civil works supported by qualified technical expertise and project delivery capabilities.</p>
-      <div class="btn-row">{btn('contact.html#property', 'Request Building Works Assessment', 'Request Assessment')}<a class="fs-more fs-more--light" href="property-care.html#building">More about Building &amp; Civil Works <span aria-hidden="true">&rarr;</span></a></div>
+      <div class="sv-link-line" aria-hidden="true"><span class="sv-ll-a">MFS</span><i><b></b></i><span class="sv-ll-b">{eco_logo(22)}</span></div>
+      <div class="btn-row">{btn('contact.html#building', 'Request a Building Works Proposal', 'Get Proposal', arrow=True)}<a class="sv-explore sv-explore--light" href="property-care.html#building">Explore Building &amp; Civil Works <span aria-hidden="true">&#8599;</span></a></div>
     </div>
-    <div class="partner-card">
-      <div class="eco-head">{eco_logo(40)}<div><b>Ecotech Engineering Africa</b><span>MFS's building and civil works partner</span></div></div>
-      <ul class="checks cap-list" style="grid-template-columns:1fr 1fr">{''.join(f'<li>{CHECK.replace("currentColor", "#8A96A8")}<span>{b}</span></li>' for b in BUILD)}</ul>
-    </div>
+    <ul class="sv-build-list">{''.join(f'<li><span aria-hidden="true"></span>{b}</li>' for b in BUILD)}</ul>
   </div>
 </section>
 <section class="section" id="who">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Who we serve</span><h2>Properties we look after</h2></div>
-    <ul class="fs-who">{who}</ul>
+    <div class="section-head"><span class="eyebrow">Who we serve</span><h2>Properties we look after</h2><p class="lead">Hover or tap a property type to see the services that usually apply.</p></div>
+    <ul class="sv-props">{who}</ul>
   </div>
 </section>
-""" + closing_cta() + FOOTER
+<section class="section section--mist sv-how">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">How it works</span><h2>From first message to a better-run site</h2></div>
+    <ol class="sv-how-steps" data-tl>{how}</ol>
+  </div>
+</section>
+""" + closing_cta() + FOOTER.replace('<script src="assets/js/motion.js" defer></script>', '<script src="assets/js/motion.js" defer></script>\n<script src="assets/js/services.js" defer></script>')
 write("services.html", services)
 
 # =========================== DIVISION PAGES ===========================
